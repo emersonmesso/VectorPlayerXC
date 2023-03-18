@@ -1,14 +1,14 @@
-import 'dart:io';
-import 'package:apptv/components/ItemMove.dart';
-import 'package:apptv/controller/functions.dart';
-import 'package:apptv/models/ResponseListAPI.dart';
-import 'package:apptv/pages/Home.dart';
-import 'package:apptv/pages/SplashScreen.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:device_info_plus/device_info_plus.dart';
+import 'package:get/get.dart';
 import 'package:lottie/lottie.dart';
+import '../components/ItemMove.dart';
 import '../controller/HttpController.dart';
+import '../controller/functions.dart';
+import '../models/ResponseListAPI.dart';
+import 'Home.dart';
+import 'SplashScreen.dart';
 
 class LoginPage extends StatefulWidget {
   const LoginPage({Key? key}) : super(key: key);
@@ -42,9 +42,7 @@ class _LoginPageState extends State<LoginPage> {
       if (l!.length > 0) {
         //limpando a lista
         if (await saveDataAPI(l)) {
-          Navigator.of(context).pushAndRemoveUntil(
-              MaterialPageRoute(builder: (context) => const HomePage()),
-                  (Route<dynamic> route) => false);
+          Get.off(const HomePage());
         }
       } else {
         //não tem listas, mostra a página de login
@@ -62,9 +60,7 @@ class _LoginPageState extends State<LoginPage> {
       if (l!.length > 0) {
         //limpando a lista
         if (await saveDataAPI(l)) {
-          Navigator.of(context).pushAndRemoveUntil(
-              MaterialPageRoute(builder: (context) => const HomePage()),
-                  (Route<dynamic> route) => false);
+          Get.off(const HomePage());
         }
       } else {
         //não tem listas, mostra a página de login
@@ -79,11 +75,7 @@ class _LoginPageState extends State<LoginPage> {
   }
 
   Future<void> _launchUrl() async {
-    Navigator.of(context).pushAndRemoveUntil(
-        MaterialPageRoute(
-          builder: (context) => const SplashScreen(),
-        ),
-            (Route<dynamic> route) => false);
+    Get.to(const SplashScreen());
   }
 
   @override

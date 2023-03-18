@@ -1,10 +1,11 @@
 import 'dart:convert';
-import 'package:apptv/components/ItemMove.dart';
-import 'package:apptv/models/SettingsData.dart';
-import 'package:apptv/pages/Login.dart';
 import 'package:flutter/material.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+
+import '../components/ItemMove.dart';
+import '../models/SettingsData.dart';
+import 'Login.dart';
 
 class SettingsPage extends StatefulWidget {
   const SettingsPage({Key? key}) : super(key: key);

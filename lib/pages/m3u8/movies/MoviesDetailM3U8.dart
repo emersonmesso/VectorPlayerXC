@@ -1,14 +1,12 @@
-import 'package:apptv/components/ItemMove.dart';
-import 'package:apptv/controller/HttpController.dart';
-import 'package:apptv/controller/functions.dart';
-import 'package:apptv/models/ListM3U8/ResponseListM3U8Channel.dart';
-import 'package:apptv/models/ResponseAPITMDB.dart';
-import 'package:apptv/models/ResponseStorageAPI.dart';
-import 'package:flick_video_player/flick_video_player.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:pod_player/pod_player.dart';
-import 'package:video_player/video_player.dart';
+
+import '../../../components/ItemMove.dart';
+import '../../../controller/HttpController.dart';
+import '../../../controller/functions.dart';
+import '../../../models/ListM3U8/ResponseListM3U8Channel.dart';
+import '../../../models/ResponseAPITMDB.dart';
+import '../../../models/ResponseStorageAPI.dart';
 
 class MoviesDetailM3U8 extends StatefulWidget {
   const MoviesDetailM3U8({Key? key, required this.movie}) : super(key: key);

@@ -1,11 +1,11 @@
-import 'dart:async';
-import 'package:apptv/controller/HttpController.dart';
-import 'package:apptv/controller/functions.dart';
-import 'package:apptv/models/ResponseStorageAPI.dart';
-import 'package:apptv/pages/ExpirePage.dart';
-import 'package:apptv/pages/m3u8/HomeScreenListM3U8.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
+
+import '../../controller/HttpController.dart';
+import '../../controller/functions.dart';
+import '../../models/ResponseStorageAPI.dart';
+import '../ExpirePage.dart';
+import 'HomeScreenListM3U8.dart';
 
 class DownloadScreenListm3u8 extends StatefulWidget {
   const DownloadScreenListm3u8({Key? key}) : super(key: key);

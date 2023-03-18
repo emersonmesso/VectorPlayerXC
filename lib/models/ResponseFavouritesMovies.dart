@@ -1,4 +1,5 @@
-import 'package:apptv/models/ResponseMoviesCategory.dart';
+import 'ResponseMoviesCategory.dart';
+
 class ResponseFavouriteMovies {
   String? url;
   ResponseMoviesCategory? movie;

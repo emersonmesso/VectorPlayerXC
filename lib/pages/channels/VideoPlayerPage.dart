@@ -1,18 +1,17 @@
-import 'package:apptv/ad_helper.dart';
-import 'package:apptv/components/ItemEPG.dart';
-import 'package:apptv/components/ItemMove.dart';
-import 'package:apptv/controller/functions.dart';
-import 'package:apptv/models/ListM3U8/ResponseListM3U8Channel.dart';
-import 'package:apptv/models/ResponseChannelAPI.dart';
-import 'package:apptv/models/ResponseChannelEPG.dart';
-import 'package:apptv/models/ResponseStorageAPI.dart';
-import 'package:apptv/models/SettingsData.dart';
 import 'package:chewie/chewie.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:google_mobile_ads/google_mobile_ads.dart';
 import 'package:pod_player/pod_player.dart';
+import '../../ad_helper.dart';
+import '../../components/ItemEPG.dart';
+import '../../components/ItemMove.dart';
+import '../../controller/functions.dart';
+import '../../models/ResponseChannelAPI.dart';
+import '../../models/ResponseChannelEPG.dart';
+import '../../models/ResponseStorageAPI.dart';
+import '../../models/SettingsData.dart';
 
 class VideoPlayerPageM3U8 extends StatefulWidget {
   const VideoPlayerPageM3U8({Key? key, required this.channel})
@@ -24,8 +23,8 @@ class VideoPlayerPageM3U8 extends StatefulWidget {
 }
 
 class _VideoPlayerPageM3U8State extends State<VideoPlayerPageM3U8> {
-  late ChewieController controller;
-  late VideoPlayerController videoPlayerController;
+  late VideoPlayerController videoPlayerController =
+      VideoPlayerController.network("http://www.google.com");
   late ResponseStorageAPI responseStorageAPI;
   late List<ResponseChannelEPG> listaEPG = <ResponseChannelEPG>[];
   late SettingsData settings;
@@ -57,14 +56,13 @@ class _VideoPlayerPageM3U8State extends State<VideoPlayerPageM3U8> {
   @override
   void dispose() {
     videoPlayerController.dispose();
-    controller.dispose();
     super.dispose();
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: (!videoPlayerController.value.isInitialized)
+      body: (videoPlayerController.dataSource == "http://www.google.com")
           ? Container(
               color: Theme.of(context).backgroundColor,
               child: const Center(
@@ -101,8 +99,8 @@ class _VideoPlayerPageM3U8State extends State<VideoPlayerPageM3U8> {
                           child: AspectRatio(
                             aspectRatio:
                                 const MediaQueryData().devicePixelRatio,
-                            child: Chewie(
-                              controller: controller,
+                            child: VideoPlayer(
+                              videoPlayerController,
                             ),
                           ),
                         ),
@@ -298,25 +296,25 @@ class _VideoPlayerPageM3U8State extends State<VideoPlayerPageM3U8> {
 
   void _videoPause() async {
     setState(() {
-      controller.pause();
+      videoPlayerController.pause();
       isPlaying = false;
     });
   }
 
   void _videoPlayer() async {
     setState(() {
-      controller.play();
+      videoPlayerController.play();
       isPlaying = true;
     });
   }
 
   void _enterFullscreen() async {
-    controller.enterFullScreen();
+    pushFullScreenVideo();
     await saveRecentPlayingChannel(channel, responseStorageAPI.url);
   }
 
   void _toggleFullScreenOff() async {
-    controller.exitFullScreen();
+    pushFullScreenVideo();
     await saveRecentPlayingChannel(channel, responseStorageAPI.url);
   }
 
@@ -350,26 +348,15 @@ class _VideoPlayerPageM3U8State extends State<VideoPlayerPageM3U8> {
       });
     }
     print(
-        'ABRINDO LINK: ${responseStorageAPI.url}live/${responseStorageAPI.username}/${responseStorageAPI.password}/${channel.streamId}.${settings.typelist!}');
-    setState(() {
-      videoPlayerController = VideoPlayerController.network(
-          '${responseStorageAPI.url}live/${responseStorageAPI.username}/${responseStorageAPI.password}/${channel.streamId}.${settings.typelist!}');
-    });
-    controller = ChewieController(
-      videoPlayerController: videoPlayerController,
-      isLive: true,
-      autoPlay: true,
-      showControls: isMobile(),
-      fullScreenByDefault: settings.openFullScreen!,
-      deviceOrientationsAfterFullScreen: [
-        DeviceOrientation.landscapeRight,
-        DeviceOrientation.landscapeLeft,
-      ],
-      showControlsOnInitialize: false,
-      allowPlaybackSpeedChanging: false,
-      allowedScreenSleep: false,
-      showOptions: false,
-    );
+        'ABRINDO LINK: ${responseStorageAPI.url}live/${responseStorageAPI.username}/${responseStorageAPI.password}/${channel.streamId}.m3u8');
+    videoPlayerController = VideoPlayerController.network(
+        '${responseStorageAPI.url}live/${responseStorageAPI.username}/${responseStorageAPI.password}/${channel.streamId}.m3u8')
+      ..initialize().then((value) {
+        setState(() {
+          isPlaying = true;
+          videoPlayerController.play();
+        });
+      });
 
     videoPlayerController.addListener(() {
       if (videoPlayerController.value.isPlaying) {
@@ -438,5 +425,77 @@ class _VideoPlayerPageM3U8State extends State<VideoPlayerPageM3U8> {
         isFavourite = true;
       });
     }
+  }
+
+  handleKey(RawKeyEvent key) {
+    print(
+        'KeyCode: ${key.physicalKey.debugName}, CodePoint: ${key.data.logicalKey.keyId},');
+  }
+
+  void pushFullScreenVideo() {
+    SystemChrome.setEnabledSystemUIOverlays([SystemUiOverlay.bottom]);
+    SystemChrome.setEnabledSystemUIOverlays([]);
+    SystemChrome.setPreferredOrientations(
+      [
+        DeviceOrientation.landscapeRight,
+        DeviceOrientation.landscapeLeft,
+      ],
+    );
+    Navigator.of(context)
+        .push(
+      PageRouteBuilder(
+        opaque: false,
+        settings: const RouteSettings(),
+        pageBuilder: (
+          BuildContext context,
+          Animation<double> animation,
+          Animation<double> secondaryAnimation,
+        ) {
+          return Scaffold(
+            backgroundColor: Colors.transparent,
+            body: RawKeyboardListener(
+              focusNode: FocusNode(),
+              onKey: (key) => handleKey(key),
+              child: Dismissible(
+                key: const Key('key'),
+                direction: DismissDirection.vertical,
+                onDismissed: (_) => Navigator.of(context).pop(),
+                child: OrientationBuilder(
+                  builder: (context, orientation) {
+                    bool isPortrait = orientation == Orientation.portrait;
+                    return Center(
+                      child: Stack(
+                        //This will help to expand video in Horizontal mode till last pixel of screen
+                        fit: isPortrait ? StackFit.loose : StackFit.expand,
+                        children: [
+                          AspectRatio(
+                            aspectRatio:
+                                videoPlayerController.value.aspectRatio,
+                            child: VideoPlayer(videoPlayerController),
+                          ),
+                        ],
+                      ),
+                    );
+                  },
+                ),
+              ),
+            ),
+          );
+        },
+      ),
+    )
+        .then(
+      (value) {
+//This will help you to set previous Device orientations of screen so App will continue for portrait mode
+
+        SystemChrome.setEnabledSystemUIOverlays(SystemUiOverlay.values);
+        SystemChrome.setPreferredOrientations(
+          [
+            DeviceOrientation.landscapeRight,
+            DeviceOrientation.landscapeLeft,
+          ],
+        );
+      },
+    );
   }
 }

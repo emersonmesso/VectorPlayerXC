@@ -1,15 +1,16 @@
 import 'dart:async';
 import 'dart:convert';
-import 'package:apptv/controller/functions.dart';
-import 'package:apptv/models/ResponseCategorySeries.dart';
-import 'package:apptv/models/ResponseStorageAPI.dart';
-import 'package:apptv/models/Serie/ResponseInfoSerieEpisode.dart';
-import 'package:apptv/models/Serie/SerieWatching.dart';
 import 'package:flick_video_player/flick_video_player.dart';
 import 'package:flutter/material.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:pod_player/pod_player.dart';
 import 'package:flutter/services.dart';
+
+import '../../controller/functions.dart';
+import '../../models/ResponseCategorySeries.dart';
+import '../../models/ResponseStorageAPI.dart';
+import '../../models/Serie/ResponseInfoSerieEpisode.dart';
+import '../../models/Serie/SerieWatching.dart';
 
 class PlayerEpidode extends StatefulWidget {
   const PlayerEpidode({Key? key, required this.episode, required this.serie})

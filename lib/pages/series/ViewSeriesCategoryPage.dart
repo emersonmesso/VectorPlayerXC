@@ -1,12 +1,12 @@
-import 'package:apptv/components/ItemMove.dart';
-import 'package:apptv/components/ItemSerie.dart';
-import 'package:apptv/controller/HttpController.dart';
-import 'package:apptv/controller/functions.dart';
-import 'package:apptv/models/ResponseCategorySeries.dart';
-import 'package:apptv/models/ResponseStorageAPI.dart';
-import 'package:apptv/pages/Home.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
+
+import '../../components/ItemMove.dart';
+import '../../components/ItemSerie.dart';
+import '../../controller/HttpController.dart';
+import '../../controller/functions.dart';
+import '../../models/ResponseCategorySeries.dart';
+import '../../models/ResponseStorageAPI.dart';
 
 class ViewSeriesCategoryPage extends StatefulWidget {
   const ViewSeriesCategoryPage(

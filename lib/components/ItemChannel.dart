@@ -1,13 +1,14 @@
-import 'package:apptv/components/ItemMove.dart';
-import 'package:apptv/controller/HttpController.dart';
-import 'package:apptv/controller/functions.dart';
-import 'package:apptv/models/ResponseChannelAPI.dart';
-import 'package:apptv/models/ResponseChannelEPG.dart';
-import 'package:apptv/models/ResponseStorageAPI.dart';
-import 'package:apptv/models/SettingsData.dart';
-import 'package:apptv/pages/channels/VideoPlayerPage.dart';
-import 'package:apptv/pages/channels/VideoPlayerPage1.dart';
 import 'package:flutter/material.dart';
+
+import '../controller/HttpController.dart';
+import '../controller/functions.dart';
+import '../models/ResponseChannelAPI.dart';
+import '../models/ResponseChannelEPG.dart';
+import '../models/ResponseStorageAPI.dart';
+import '../models/SettingsData.dart';
+import '../pages/channels/VideoPlayerPage.dart';
+import '../pages/channels/VideoPlayerPage1.dart';
+import 'ItemMove.dart';
 
 class ItemChannel extends StatefulWidget {
   const ItemChannel({Key? key, required this.data}) : super(key: key);
@@ -66,58 +67,33 @@ class _ItemChannelState extends State<ItemChannel> {
           color: Theme.of(context).accentColor,
         ),
         child: Column(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          crossAxisAlignment: CrossAxisAlignment.center,
+          mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            Row(
-              crossAxisAlignment: CrossAxisAlignment.center,
-              children: [
-                Image.network(
-                  data.streamIcon!,
-                  fit: BoxFit.contain,
-                  width: 40,
-                  height: 40,
-                  errorBuilder: (BuildContext context, Object exception,
-                      StackTrace? stackTrace) {
-                    return Image.asset(
-                      "lib/assets/logo.png",
-                      fit: BoxFit.contain,
-                      width: 40,
-                      height: 40,
-                    );
-                  },
+            Center(
+              child: Text(
+                data.name!,
+                softWrap: false,
+                style: const TextStyle(
+                  fontSize: 16,
+                  color: Colors.white,
+                  overflow: TextOverflow.ellipsis,
                 ),
-                const SizedBox(
-                  width: 5,
-                ),
-                Expanded(
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text(
-                        data.name!,
-                        softWrap: false,
-                        style: const TextStyle(
-                          fontSize: 16,
-                          color: Colors.white,
-                          overflow: TextOverflow.ellipsis,
-                        ),
-                      ),
-                      (settings.showEPG!)
-                          ? Text(
-                              epgTitle,
-                              style: const TextStyle(
-                                fontSize: 12,
-                                color: Colors.red,
-                              ),
-                              maxLines: 2,
-                              overflow: TextOverflow.ellipsis,
-                            )
-                          : Container(),
-                    ],
-                  ),
-                ),
-              ],
+              ),
             ),
+            (settings.showEPG!)
+                ? Center(
+                  child: Text(
+                      epgTitle,
+                      style: const TextStyle(
+                        fontSize: 12,
+                        color: Colors.red,
+                      ),
+                      maxLines: 2,
+                      overflow: TextOverflow.ellipsis,
+                    ),
+                )
+                : Container(),
           ],
         ),
       ),
@@ -130,7 +106,6 @@ class _ItemChannelState extends State<ItemChannel> {
     settings = (await getSeetings())!;
 
     if (data.epg_channel_id != null) {
-      print(data.epg_channel_id.toString());
       var response = await getEpgFromChannel(data.epg_channel_id!);
       if (response.length > 0) {
         setState(() {

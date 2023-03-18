@@ -1,12 +1,11 @@
-import 'package:apptv/components/ItemMove.dart';
-import 'package:apptv/components/ItemSerie.dart';
-import 'package:apptv/controller/HttpController.dart';
-import 'package:apptv/models/ResponseCategorySeries.dart';
-import 'package:apptv/models/ResponseStorageAPI.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
-
+import '../../components/ItemMove.dart';
+import '../../components/ItemSerie.dart';
+import '../../controller/HttpController.dart';
 import '../../controller/functions.dart';
+import '../../models/ResponseCategorySeries.dart';
+import '../../models/ResponseStorageAPI.dart';
 
 class AllSeriesPage extends StatefulWidget {
   const AllSeriesPage({Key? key}) : super(key: key);
@@ -73,7 +72,6 @@ class _AllSeriesPageState extends State<AllSeriesPage> {
       children: List.generate(
         _searchIndexList.length,
             (index) {
-          print(_searchIndexList[index].name);
           return ItemSerie(serie: _searchIndexList[index],);
         },
       ),

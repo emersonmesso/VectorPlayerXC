@@ -1,23 +1,25 @@
 import 'dart:async';
-import 'package:apptv/ad_helper.dart';
-import 'package:apptv/components/ItemMove.dart';
-import 'package:apptv/controller/HttpController.dart';
-import 'package:apptv/controller/functions.dart';
-import 'package:apptv/models/ResponseActiveAPI.dart';
-import 'package:apptv/models/ResponseStorageAPI.dart';
-import 'package:apptv/models/SettingsData.dart';
-import 'package:apptv/pages/ExpirePage.dart';
-import 'package:apptv/pages/PlayerVideoOld.dart';
-import 'package:apptv/pages/SettingsPage.dart';
-import 'package:apptv/pages/m3u8/DownloadScreenListm3u8.dart';
-import 'package:apptv/pages/m3u8/HomeScreenListM3U8.dart';
-import 'package:apptv/pages/movies/CategoriesMoviesPage.dart';
-import 'package:apptv/pages/ChangeServerPage.dart';
-import 'package:apptv/pages/channels/ChannelsPage.dart';
-import 'package:apptv/pages/series/CategorySeriesPage.dart';
+import 'package:appvector/controller/HomeController.dart';
+import 'package:appvector/pages/series/CategorySeriesPage.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:intl/intl.dart';
 import 'package:google_mobile_ads/google_mobile_ads.dart';
+import '../ad_helper.dart';
+import '../components/ItemMove.dart';
+import '../controller/HttpController.dart';
+import '../controller/functions.dart';
+import '../models/ResponseActiveAPI.dart';
+import '../models/ResponseStorageAPI.dart';
+import '../models/SettingsData.dart';
+import 'ChangeServerPage.dart';
+import 'ExpirePage.dart';
+import 'PlayerVideoOld.dart';
+import 'SettingsPage.dart';
+import 'channels/ChannelsPage.dart';
+import 'm3u8/DownloadScreenListm3u8.dart';
+import 'm3u8/HomeScreenListM3U8.dart';
+import 'movies/CategoriesMoviesPage.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({Key? key}) : super(key: key);
@@ -72,7 +74,7 @@ class _HomePageState extends State<HomePage> {
     if (isMobile()) {
       // TODO: Load a banner ad
       MobileAds.instance.updateRequestConfiguration(RequestConfiguration(
-          testDeviceIds: ['8F4DE589F88E8FFBB2FC2F8019412BA2']));
+          testDeviceIds: ['8F4DE589F88E8FFBB2FC2F8019412BA2','1578B051D9D9D896FA420A580DE625F4']));
       BannerAd(
         adUnitId: AdHelper.bannerAdUnitId,
         request: const AdRequest(),
@@ -138,26 +140,18 @@ class _HomePageState extends State<HomePage> {
             });
           }
         } else {
-          Navigator.of(context).pushAndRemoveUntil(
-              MaterialPageRoute(builder: (context) => const ExpirePage()),
-              (Route<dynamic> route) => false);
+          Get.off(const ExpirePage());
         }
       } else {
-        Navigator.of(context).pushAndRemoveUntil(
-            MaterialPageRoute(builder: (context) => const ExpirePage()),
-            (Route<dynamic> route) => false);
+        Get.off(const ExpirePage());
       }
     } else {
       //verifica se já tem salvo os dados
       if (await verifySaveListM3U8()) {
-        Navigator.of(context).pushAndRemoveUntil(
-            MaterialPageRoute(builder: (context) => const HomeScreenListM3U8()),
-            (Route<dynamic> route) => false);
+        Get.off(const HomeScreenListM3U8());
+
       } else {
-        Navigator.of(context).pushAndRemoveUntil(
-            MaterialPageRoute(
-                builder: (context) => const DownloadScreenListm3u8()),
-            (Route<dynamic> route) => false);
+        Get.off(const DownloadScreenListm3u8());
       }
     }
   }
@@ -167,6 +161,7 @@ class _HomePageState extends State<HomePage> {
   Widget build(BuildContext context) {
     fullwidth = MediaQuery.of(context).size.width;
     fullHeigth = MediaQuery.of(context).size.height;
+    final controller = Get.put(HomeController());
     return Scaffold(
       body: isLoading
           ? Container(
@@ -231,12 +226,7 @@ class _HomePageState extends State<HomePage> {
                           corBorda: Colors.white,
                           isCategory: true,
                           callback: () {
-                            Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                builder: (context) => const SettingsPage(),
-                              ),
-                            );
+                            Get.to(const SettingsPage());
                           },
                           child: const Icon(
                             Icons.settings,
@@ -274,12 +264,7 @@ class _HomePageState extends State<HomePage> {
                           corBorda: Colors.white,
                           isCategory: false,
                           callback: () {
-                            Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                builder: (context) => const ChangeServerPage(),
-                              ),
-                            );
+                            Get.to(const ChangeServerPage());
                           },
                           child: Row(
                             children: [
@@ -330,19 +315,9 @@ class _HomePageState extends State<HomePage> {
                           isCategory: false,
                           callback: () {
                             if (settings.openOldPeople!) {
-                              Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                  builder: (context) => const PlayerVideoOld(),
-                                ),
-                              );
+                              Get.to(const PlayerVideoOld());
                             } else {
-                              Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                  builder: (context) => const ChannelsPage(),
-                                ),
-                              );
+                              Get.to(const ChannelsPage());
                             }
                           },
                           child: Container(
@@ -373,13 +348,7 @@ class _HomePageState extends State<HomePage> {
                           corBorda: Colors.white,
                           isCategory: false,
                           callback: () {
-                            Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                builder: (context) =>
-                                    const CategoriesMoviesPage(),
-                              ),
-                            );
+                            Get.to(const CategoriesMoviesPage());
                           },
                           child: Container(
                             padding: const EdgeInsets.all(10.0),
@@ -409,13 +378,7 @@ class _HomePageState extends State<HomePage> {
                           corBorda: Colors.white,
                           isCategory: false,
                           callback: () {
-                            Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                builder: (context) =>
-                                    const CategorySeriesPage(),
-                              ),
-                            );
+                            Get.to(const CategorySeriesPage());
                           },
                           child: Container(
                             padding: const EdgeInsets.all(10.0),

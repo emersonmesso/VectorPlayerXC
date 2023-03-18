@@ -1,19 +1,18 @@
 import 'dart:async';
-import 'package:apptv/ad_helper.dart';
-import 'package:apptv/components/ItemMove.dart';
-import 'package:apptv/controller/HttpController.dart';
-import 'package:apptv/controller/functions.dart';
-import 'package:apptv/models/ResponseStorageAPI.dart';
-import 'package:apptv/pages/ChangeServerPage.dart';
-import 'package:apptv/pages/SettingsPage.dart';
-import 'package:apptv/pages/TestVideo.dart';
-import 'package:apptv/pages/m3u8/channels/categoryChannels.dart';
-import 'package:apptv/pages/m3u8/movies/categoryMovies.dart';
-import 'package:apptv/pages/movies/CategoriesMoviesPage.dart';
-import 'package:apptv/pages/series/CategorySeriesPage.dart';
 import 'package:flutter/material.dart';
 import 'package:google_mobile_ads/google_mobile_ads.dart';
 import 'package:intl/intl.dart';
+
+import '../../ad_helper.dart';
+import '../../components/ItemMove.dart';
+import '../../controller/HttpController.dart';
+import '../../controller/functions.dart';
+import '../../models/ResponseStorageAPI.dart';
+import '../ChangeServerPage.dart';
+import '../SettingsPage.dart';
+import '../series/CategorySeriesPage.dart';
+import 'channels/categoryChannels.dart';
+import 'movies/categoryMovies.dart';
 
 class HomeScreenListM3U8 extends StatefulWidget {
   const HomeScreenListM3U8({Key? key}) : super(key: key);

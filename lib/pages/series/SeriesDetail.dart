@@ -1,21 +1,21 @@
 import 'dart:convert';
-import 'package:apptv/ad_helper.dart';
-import 'package:apptv/components/ItemMove.dart';
-import 'package:apptv/components/itemEpisodeSerie.dart';
-import 'package:apptv/controller/HttpController.dart';
-import 'package:apptv/controller/functions.dart';
-import 'package:apptv/controller/seriesDAO/SeriesDAO.dart';
-import 'package:apptv/models/ResponseCategorySeries.dart';
-import 'package:apptv/models/ResponseStorageAPI.dart';
-import 'package:apptv/models/Serie/ListSeason.dart';
-import 'package:apptv/models/Serie/ResponseSerieInfoAll.dart';
-import 'package:apptv/models/Serie/SerieWatching.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:google_mobile_ads/google_mobile_ads.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:intl/intl.dart';
 
+import '../../ad_helper.dart';
+import '../../components/ItemMove.dart';
+import '../../components/itemEpisodeSerie.dart';
+import '../../controller/HttpController.dart';
+import '../../controller/functions.dart';
+import '../../controller/seriesDAO/SeriesDAO.dart';
+import '../../models/ResponseCategorySeries.dart';
+import '../../models/ResponseStorageAPI.dart';
+import '../../models/Serie/ListSeason.dart';
+import '../../models/Serie/ResponseSerieInfoAll.dart';
+import '../../models/Serie/SerieWatching.dart';
 import 'SeasonsSerieDetail.dart';
 
 class SeriesDetailPage extends StatefulWidget {

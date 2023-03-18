@@ -1,7 +1,8 @@
-import 'package:apptv/components/ItemSeason.dart';
-import 'package:apptv/models/ResponseCategorySeries.dart';
-import 'package:apptv/models/Serie/ResponseSerieInfoAll.dart';
 import 'package:flutter/material.dart';
+
+import '../../components/ItemSeason.dart';
+import '../../models/ResponseCategorySeries.dart';
+import '../../models/Serie/ResponseSerieInfoAll.dart';
 class SeasonsSerieDetail extends StatefulWidget {
   const SeasonsSerieDetail({Key? key, required this.serie, required this.title, required this.serieInfo}) : super(key: key);
   final ResponseInfoSerieAll serie;

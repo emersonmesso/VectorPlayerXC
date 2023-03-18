@@ -1,8 +1,8 @@
-import 'package:apptv/controller/functions.dart';
-import 'package:apptv/pages/SplashScreen.dart';
+import 'package:appvector/pages/SplashScreen.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:get/get.dart';
 import 'package:hexcolor/hexcolor.dart';
 import 'package:hive_flutter/adapters.dart';
 import 'package:path_provider/path_provider.dart';
@@ -26,29 +26,26 @@ void main() async {
     await Hive.initFlutter();
   }
   runApp(
-    MyApp(),
-  );
-}
-
-class MyApp extends StatelessWidget {
-  // This widget is the root of your application.
-  @override
-  Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'Vector Play',
-      theme: ThemeData(
-        primarySwatch: Colors.red,
-        backgroundColor: HexColor("#201d2e"),
-        accentColor: HexColor("#262432"),
-      ),
-      debugShowCheckedModeBanner: false,
-      initialRoute: '/',
-      routes: {
-        // When navigating to the "/" route, build the FirstScreen widget.
-        '/': (context) => const SplashScreen(),
-        // When navigating to the "/second" route, build the SecondScreen widget.
-        //'/second': (context) => const SecondScreen(),
+    Shortcuts(
+      shortcuts: <LogicalKeySet, Intent>{
+        LogicalKeySet(LogicalKeyboardKey.select): const ActivateIntent(),
       },
-    );
-  }
+      child: GetMaterialApp(
+        debugShowCheckedModeBanner: false,
+        title: 'Vector Play',
+        theme: ThemeData(
+          primarySwatch: Colors.red,
+          backgroundColor: HexColor("#201d2e"),
+          accentColor: HexColor("#262432"),
+        ),
+        initialRoute: '/',
+        routes: {
+          // When navigating to the "/" route, build the FirstScreen widget.
+          '/': (context) => const SplashScreen(),
+          // When navigating to the "/second" route, build the SecondScreen widget.
+          //'/second': (context) => const SecondScreen(),
+        },
+      ),
+    ),
+  );
 }

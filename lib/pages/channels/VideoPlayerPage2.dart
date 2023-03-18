@@ -1,20 +1,20 @@
-import 'package:apptv/ad_helper.dart';
-import 'package:apptv/components/ItemEPG.dart';
-import 'package:apptv/components/ItemMove.dart';
-import 'package:apptv/controller/HttpController.dart';
-import 'package:apptv/controller/functions.dart';
-import 'package:apptv/models/ResponseChannelAPI.dart';
-import 'package:apptv/models/ResponseChannelEPG.dart';
-import 'package:apptv/models/ResponseEPG.dart';
-import 'package:apptv/models/ResponseStorageAPI.dart';
-import 'package:apptv/models/SettingsData.dart';
 import 'package:chewie/chewie.dart';
-import 'package:flick_video_player/flick_video_player.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:google_mobile_ads/google_mobile_ads.dart';
 import 'package:flutter/services.dart';
 import 'package:pod_player/pod_player.dart';
+
+import '../../ad_helper.dart';
+import '../../components/ItemEPG.dart';
+import '../../components/ItemMove.dart';
+import '../../controller/HttpController.dart';
+import '../../controller/functions.dart';
+import '../../models/ResponseChannelAPI.dart';
+import '../../models/ResponseChannelEPG.dart';
+import '../../models/ResponseEPG.dart';
+import '../../models/ResponseStorageAPI.dart';
+import '../../models/SettingsData.dart';
 
 class VideoPlayerPage2 extends StatefulWidget {
   const VideoPlayerPage2({Key? key, required this.data}) : super(key: key);

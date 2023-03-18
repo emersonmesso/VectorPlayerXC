@@ -1,8 +1,9 @@
-import 'package:apptv/components/ItemMove.dart';
-import 'package:apptv/models/ListM3U8/ResponseListM3U8Channel.dart';
-import 'package:apptv/pages/m3u8/movies/MoviesDetailM3U8.dart';
-import 'package:apptv/pages/m3u8/movies/itemMovieM3U8.dart';
 import 'package:flutter/material.dart';
+
+import '../../../components/ItemMove.dart';
+import '../../../models/ListM3U8/ResponseListM3U8Channel.dart';
+import 'MoviesDetailM3U8.dart';
+import 'itemMovieM3U8.dart';
 
 class moviesFromCategory extends StatelessWidget {
   const moviesFromCategory({Key? key, required this.listMovies, required this.title})

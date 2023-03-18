@@ -1,8 +1,9 @@
 import 'dart:async';
-
-import 'package:apptv/pages/Login.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:lottie/lottie.dart';
+
+import 'Login.dart';
 
 class SplashScreen extends StatefulWidget {
   const SplashScreen({Key? key}) : super(key: key);
@@ -15,11 +16,7 @@ class _SplashScreenState extends State<SplashScreen> {
   @override
   void initState() {
     Timer(const Duration(seconds: 5), () {
-      Navigator.of(context).pushAndRemoveUntil(
-          MaterialPageRoute(
-            builder: (context) => const LoginPage(),
-          ),
-          (Route<dynamic> route) => false);
+      Get.off(const LoginPage());
     });
     super.initState();
   }
@@ -27,16 +24,6 @@ class _SplashScreenState extends State<SplashScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      floatingActionButton: SizedBox(
-        width: 50,
-        height: 50,
-        child: Center(
-          child: Lottie.asset(
-            'lib/assets/natal.json',
-            fit: BoxFit.fill,
-          ),
-        ),
-      ),
       body: Container(
         color: Theme.of(context).backgroundColor,
         width: MediaQuery.of(context).size.width,
