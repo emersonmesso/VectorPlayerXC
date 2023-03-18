@@ -1,13 +1,13 @@
-import 'package:apptv/components/ItemChannel.dart';
-import 'package:apptv/components/ItemMove.dart';
-import 'package:apptv/controller/HttpController.dart';
-import 'package:apptv/models/ResponseChannelAPI.dart';
-import 'package:apptv/models/ResponseStorageAPI.dart';
-import 'package:apptv/models/SettingsData.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 
+import '../../components/ItemChannel.dart';
+import '../../components/ItemMove.dart';
+import '../../controller/HttpController.dart';
 import '../../controller/functions.dart';
+import '../../models/ResponseChannelAPI.dart';
+import '../../models/ResponseStorageAPI.dart';
+import '../../models/SettingsData.dart';
 
 class AllChannelsPage extends StatefulWidget {
   const AllChannelsPage({Key? key}) : super(key: key);

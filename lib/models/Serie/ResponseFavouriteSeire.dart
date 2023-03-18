@@ -1,4 +1,4 @@
-import 'package:apptv/models/ResponseCategorySeries.dart';
+import '../ResponseCategorySeries.dart';
 
 class ResponseFavouriteSerie{
   String? url;

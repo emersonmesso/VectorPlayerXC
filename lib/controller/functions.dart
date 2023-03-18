@@ -1,20 +1,20 @@
 import 'dart:convert';
-import 'package:apptv/models/ListM3U8/ResponseListM3U8Series.dart';
-import 'package:apptv/models/ResponseChannelAPI.dart';
-import 'package:apptv/models/ResponseChannelEPG.dart';
-import 'package:apptv/models/ResponseFavouritesMovies.dart';
-import 'package:apptv/models/ResponseListAPI.dart';
-import 'package:apptv/models/ResponseMoviesCategory.dart';
-import 'package:apptv/models/ResponseStorageAPI.dart';
-import 'package:apptv/models/Serie/ResponseFavouriteSeire.dart';
-import 'package:apptv/models/Serie/SerieWatching.dart';
-import 'package:apptv/models/SettingsData.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:hive_flutter/adapters.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import '../models/ListM3U8/ResponseListM3U8Channel.dart';
+import '../models/ListM3U8/ResponseListM3U8Series.dart';
+import '../models/ResponseChannelAPI.dart';
+import '../models/ResponseChannelEPG.dart';
+import '../models/ResponseFavouritesMovies.dart';
+import '../models/ResponseListAPI.dart';
+import '../models/ResponseMoviesCategory.dart';
+import '../models/ResponseStorageAPI.dart';
+import '../models/Serie/ResponseFavouriteSeire.dart';
+import '../models/Serie/SerieWatching.dart';
+import '../models/SettingsData.dart';
 
 Color hexToColor(String hexCode) {
   return Color(int.parse(hexCode.substring(1, 7), radix: 16) + 0xFF000000);
@@ -138,7 +138,6 @@ Future<List<ResponseChannelEPG>> getEpgFromChannel(
     var now = DateTime.now();
     list.forEach((element) {
       //verifica se o ID é igual ao do canal
-
       if (element.sChannel == epg_channel_id &&
           convertTime(element.sStop!) >= now.millisecondsSinceEpoch) {
         //adiciona na lista de retorno

@@ -1,5 +1,5 @@
-import 'package:apptv/models/Serie/ResponseInfoSerieEpisode.dart';
-import 'package:apptv/models/Serie/ResponseInfoSerieSeason.dart';
+import 'ResponseInfoSerieEpisode.dart';
+import 'ResponseInfoSerieSeason.dart';
 
 class ListSeason {
   ResponseInfoSerieSeason? season;

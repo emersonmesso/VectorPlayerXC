@@ -1,7 +1,8 @@
-import 'package:apptv/components/ItemMove.dart';
-import 'package:apptv/models/ResponseMoviesCategory.dart';
-import 'package:apptv/pages/movies/MovieDetails.dart';
 import 'package:flutter/material.dart';
+
+import '../models/ResponseMoviesCategory.dart';
+import '../pages/movies/MovieDetails.dart';
+import 'ItemMove.dart';
 
 class ItemMovie extends StatefulWidget {
   const ItemMovie({Key? key, required this.movie}) : super(key: key);

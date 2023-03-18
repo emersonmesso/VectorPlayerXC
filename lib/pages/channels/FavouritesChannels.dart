@@ -1,11 +1,9 @@
-import 'package:apptv/components/ItemChannel.dart';
-import 'package:apptv/controller/functions.dart';
-import 'package:apptv/models/ListM3U8/ResponseListM3U8Channel.dart';
-import 'package:apptv/models/ResponseChannelAPI.dart';
-import 'package:apptv/pages/channels/VideoPlayerPage.dart';
 import 'package:flutter/material.dart';
-
+import '../../components/ItemChannel.dart';
+import '../../controller/functions.dart';
+import '../../models/ResponseChannelAPI.dart';
 import '../../models/ResponseStorageAPI.dart';
+import 'VideoPlayerPage.dart';
 
 class FavouritesChannelPage extends StatefulWidget {
   const FavouritesChannelPage({Key? key}) : super(key: key);

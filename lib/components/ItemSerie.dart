@@ -1,7 +1,8 @@
-import 'package:apptv/components/ItemMove.dart';
-import 'package:apptv/models/ResponseCategorySeries.dart';
-import 'package:apptv/pages/series/SeriesDetail.dart';
 import 'package:flutter/material.dart';
+
+import '../models/ResponseCategorySeries.dart';
+import '../pages/series/SeriesDetail.dart';
+import 'ItemMove.dart';
 
 class ItemSerie extends StatefulWidget {
   const ItemSerie({Key? key, required this.serie}) : super(key: key);

@@ -1,23 +1,24 @@
 import 'dart:convert';
-import 'package:apptv/models/ListM3U8/ResponseListM3U8Channel.dart';
-import 'package:apptv/models/ListM3U8/ResponseListM3U8Series.dart';
-import 'package:apptv/models/ResponseAPITMDB.dart';
-import 'package:apptv/models/ResponseActiveAPI.dart';
-import 'package:apptv/models/ResponseCategoriesMoviesAPI.dart';
-import 'package:apptv/models/ResponseCategorySeries.dart';
-import 'package:apptv/models/ResponseChannelAPI.dart';
-import 'package:apptv/models/ResponseChannelEPG.dart';
-import 'package:apptv/models/ResponseChannelsAPI.dart';
-import 'package:apptv/models/ResponseListAPI.dart';
-import 'package:apptv/models/ResponseMoviesCategory.dart';
-import 'package:apptv/models/Serie/ListSeason.dart';
-import 'package:apptv/models/Serie/ResponseInfoSerieEpisode.dart';
-import 'package:apptv/models/Serie/ResponseInfoSerieInfo.dart';
-import 'package:apptv/models/Serie/ResponseInfoSerieSeason.dart';
-import 'package:apptv/models/Serie/ResponseSerieInfoAll.dart';
 import 'package:hive/hive.dart';
 import 'package:http/http.dart' as http;
 import 'package:xml2json/xml2json.dart';
+
+import '../models/ListM3U8/ResponseListM3U8Channel.dart';
+import '../models/ListM3U8/ResponseListM3U8Series.dart';
+import '../models/ResponseAPITMDB.dart';
+import '../models/ResponseActiveAPI.dart';
+import '../models/ResponseCategoriesMoviesAPI.dart';
+import '../models/ResponseCategorySeries.dart';
+import '../models/ResponseChannelAPI.dart';
+import '../models/ResponseChannelEPG.dart';
+import '../models/ResponseChannelsAPI.dart';
+import '../models/ResponseListAPI.dart';
+import '../models/ResponseMoviesCategory.dart';
+import '../models/Serie/ListSeason.dart';
+import '../models/Serie/ResponseInfoSerieEpisode.dart';
+import '../models/Serie/ResponseInfoSerieInfo.dart';
+import '../models/Serie/ResponseInfoSerieSeason.dart';
+import '../models/Serie/ResponseSerieInfoAll.dart';
 
 class HTTpController {
   final String URL_API = "http://vectorplayer.com/v1/";
@@ -190,7 +191,6 @@ class HTTpController {
         var responseData = json.decode(response.body) as List;
         List<ResponseChannelAPI> lista =
             responseData.map((e) => ResponseChannelAPI.fromJson(e)).toList();
-        print("CONTAGEM: ${lista.length}");
         return lista;
       }
     } catch (e) {

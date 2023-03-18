@@ -1,15 +1,15 @@
-import 'package:apptv/components/ItemMove.dart';
-import 'package:apptv/controller/HttpController.dart';
-import 'package:apptv/controller/functions.dart';
-import 'package:apptv/models/ResponseCategoriesMoviesAPI.dart';
-import 'package:apptv/models/ResponseStorageAPI.dart';
-import 'package:apptv/pages/movies/AllMoviesPage.dart';
-import 'package:apptv/pages/movies/FavouritesMoviesPage.dart';
-import 'package:apptv/pages/movies/MoviesCategoriePage.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 
+import '../../components/ItemMove.dart';
+import '../../controller/HttpController.dart';
+import '../../controller/functions.dart';
+import '../../models/ResponseCategoriesMoviesAPI.dart';
 import '../../models/ResponseMoviesCategory.dart';
+import '../../models/ResponseStorageAPI.dart';
+import 'AllMoviesPage.dart';
+import 'FavouritesMoviesPage.dart';
+import 'MoviesCategoriePage.dart';
 
 class CategoriesMoviesPage extends StatefulWidget {
   const CategoriesMoviesPage({Key? key}) : super(key: key);

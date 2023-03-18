@@ -1,6 +1,6 @@
-import 'package:apptv/pages/Home.dart';
-import 'package:apptv/pages/TestVideo.dart';
 import 'package:flutter/material.dart';
+
+import '../pages/Home.dart';
 
 class ItemMenuEsquerdo extends StatelessWidget {
   const ItemMenuEsquerdo({Key? key, required this.assets, required this.name, required this.isFocused}) : super(key: key);

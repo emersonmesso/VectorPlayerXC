@@ -1,14 +1,10 @@
-import 'package:apptv/components/ItemChannel.dart';
-import 'package:apptv/components/ItemMove.dart';
-import 'package:apptv/components/ItemMovie.dart';
-import 'package:apptv/controller/HttpController.dart';
-import 'package:apptv/models/ResponseChannelAPI.dart';
-import 'package:apptv/models/ResponseMoviesCategory.dart';
-import 'package:apptv/models/ResponseStorageAPI.dart';
 import 'package:flutter/material.dart';
-import 'package:fluttertoast/fluttertoast.dart';
-
+import '../../components/ItemMove.dart';
+import '../../components/ItemMovie.dart';
+import '../../controller/HttpController.dart';
 import '../../controller/functions.dart';
+import '../../models/ResponseMoviesCategory.dart';
+import '../../models/ResponseStorageAPI.dart';
 
 class AllMoviesPage extends StatefulWidget {
   const AllMoviesPage({Key? key}) : super(key: key);

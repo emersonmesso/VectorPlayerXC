@@ -1,5 +1,4 @@
-import 'package:apptv/models/ResponseCategorySeries.dart';
-import 'package:apptv/models/Serie/ResponseInfoSerieEpisode.dart';
+import '../ResponseCategorySeries.dart';
 
 class ResponseSerieWatch{
   String? url;

@@ -1,6 +1,7 @@
 import 'package:dpad_container/dpad_container.dart';
 import 'package:flutter/material.dart';
-import 'package:apptv/components/ItemMenuEsquerdo.dart';
+
+import 'ItemMenuEsquerdo.dart';
 
 class MenuEsquerdo extends StatefulWidget {
   const MenuEsquerdo({Key? key}) : super(key: key);

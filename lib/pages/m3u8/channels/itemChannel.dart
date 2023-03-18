@@ -1,11 +1,11 @@
-import 'package:apptv/components/ItemMove.dart';
-import 'package:apptv/controller/functions.dart';
-import 'package:apptv/models/ListM3U8/ResponseListM3U8Channel.dart';
-import 'package:apptv/models/ResponseChannelEPG.dart';
-import 'package:apptv/models/ResponseStorageAPI.dart';
-import 'package:apptv/models/SettingsData.dart';
-import 'package:apptv/pages/m3u8/channels/VideoPlayerPage.dart';
+import 'package:appvector/pages/m3u8/channels/VideoPlayerPage.dart';
 import 'package:flutter/material.dart';
+import '../../../components/ItemMove.dart';
+import '../../../controller/functions.dart';
+import '../../../models/ListM3U8/ResponseListM3U8Channel.dart';
+import '../../../models/ResponseChannelEPG.dart';
+import '../../../models/ResponseStorageAPI.dart';
+import '../../../models/SettingsData.dart';
 
 class ItemChannelM3U8 extends StatefulWidget {
   const ItemChannelM3U8({Key? key, required this.channel}) : super(key: key);

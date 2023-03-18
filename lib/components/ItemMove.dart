@@ -1,5 +1,6 @@
-import 'package:apptv/components/navigation.dart';
 import 'package:flutter/material.dart';
+
+import 'navigation.dart';
 
 class ItemMove extends StatefulWidget {
   const ItemMove(
@@ -32,31 +33,26 @@ class _ItemMoveState extends State<ItemMove> {
 
   @override
   Widget build(BuildContext context) {
-    return DpadNavigation(
-      onFocus: (focus) {
+    return InkWell(
+      onFocusChange: (focus){
         setState(() {
           hasChange = focus;
         });
       },
-      onClick: () {
+      onTap: () {
         widget.callback();
       },
-      child: GestureDetector(
-        onTap: () {
-          widget.callback();
-        },
-        child: Container(
-          padding: EdgeInsets.all((widget.isCategory) ? 0 : 10.0),
-          decoration: BoxDecoration(
-            borderRadius:
-                BorderRadius.circular((widget.isCategory) ? 5.0 : 25.0),
-            border: Border.all(
-              color: hasChange ? widget.corBorda : Colors.transparent,
-              width: (widget.isCategory) ? 2 : 5,
-            ),
+      child: Container(
+        padding: EdgeInsets.all((widget.isCategory) ? 0 : 10.0),
+        decoration: BoxDecoration(
+          borderRadius:
+              BorderRadius.circular((widget.isCategory) ? 5.0 : 25.0),
+          border: Border.all(
+            color: hasChange ? widget.corBorda : Colors.transparent,
+            width: (widget.isCategory) ? 2 : 5,
           ),
-          child: widget.child,
         ),
+        child: widget.child,
       ),
     );
   }

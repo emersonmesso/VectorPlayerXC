@@ -1,16 +1,17 @@
-import 'package:apptv/ad_helper.dart';
-import 'package:apptv/components/ItemEPG.dart';
-import 'package:apptv/components/ItemMove.dart';
-import 'package:apptv/controller/functions.dart';
-import 'package:apptv/models/ListM3U8/ResponseListM3U8Channel.dart';
-import 'package:apptv/models/ResponseChannelEPG.dart';
-import 'package:apptv/models/ResponseStorageAPI.dart';
 import 'package:chewie/chewie.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:google_mobile_ads/google_mobile_ads.dart';
 import 'package:pod_player/pod_player.dart';
+
+import '../../../ad_helper.dart';
+import '../../../components/ItemEPG.dart';
+import '../../../components/ItemMove.dart';
+import '../../../controller/functions.dart';
+import '../../../models/ListM3U8/ResponseListM3U8Channel.dart';
+import '../../../models/ResponseChannelEPG.dart';
+import '../../../models/ResponseStorageAPI.dart';
 
 class VideoPlayerPageM3U8 extends StatefulWidget {
   const VideoPlayerPageM3U8({Key? key, required this.channel})

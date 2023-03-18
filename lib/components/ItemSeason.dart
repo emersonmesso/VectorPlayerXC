@@ -1,8 +1,9 @@
-import 'package:apptv/components/ItemMove.dart';
-import 'package:apptv/models/ResponseCategorySeries.dart';
-import 'package:apptv/models/Serie/ListSeason.dart';
-import 'package:apptv/pages/series/EpisodeSeason.dart';
 import 'package:flutter/material.dart';
+
+import '../models/ResponseCategorySeries.dart';
+import '../models/Serie/ListSeason.dart';
+import '../pages/series/EpisodeSeason.dart';
+import 'ItemMove.dart';
 
 class ItemSeason extends StatelessWidget {
   const ItemSeason({Key? key, required this.season, required this.serie})

@@ -1,15 +1,15 @@
-import 'package:apptv/components/ItemMove.dart';
-import 'package:apptv/controller/HttpController.dart';
-import 'package:apptv/models/ResponseAPITMDB.dart';
-import 'package:apptv/models/ResponseMoviesCategory.dart';
-import 'package:apptv/models/SettingsData.dart';
 import 'package:chewie/chewie.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:pod_player/pod_player.dart';
+import '../../components/ItemMove.dart';
+import '../../controller/HttpController.dart';
 import '../../controller/functions.dart';
+import '../../models/ResponseAPITMDB.dart';
+import '../../models/ResponseMoviesCategory.dart';
 import '../../models/ResponseStorageAPI.dart';
+import '../../models/SettingsData.dart';
 
 class MovieDetails extends StatefulWidget {
   const MovieDetails({Key? key, required this.movie}) : super(key: key);

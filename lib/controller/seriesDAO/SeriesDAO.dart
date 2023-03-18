@@ -1,9 +1,9 @@
 import 'dart:convert';
-
-import 'package:apptv/models/ResponseCategorySeries.dart';
-import 'package:apptv/models/Serie/ResponseFavouriteSeire.dart';
-import 'package:apptv/models/Serie/ResponseSerieWatch.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+
+import '../../models/ResponseCategorySeries.dart';
+import '../../models/Serie/ResponseFavouriteSeire.dart';
+import '../../models/Serie/ResponseSerieWatch.dart';
 
 class SeriesDAO {
   Future<List<ResponseCategorySeries>?> getListFavouritesSeries(url) async {

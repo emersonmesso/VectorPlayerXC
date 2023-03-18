@@ -1,9 +1,10 @@
-import 'package:apptv/controller/functions.dart';
-import 'package:apptv/models/ResponseCategorySeries.dart';
-import 'package:apptv/models/ResponseStorageAPI.dart';
-import 'package:apptv/models/Serie/ResponseInfoSerieEpisode.dart';
 import 'package:flutter/material.dart';
 import 'package:lottie/lottie.dart';
+
+import '../controller/functions.dart';
+import '../models/ResponseCategorySeries.dart';
+import '../models/ResponseStorageAPI.dart';
+import '../models/Serie/ResponseInfoSerieEpisode.dart';
 
 class ItemEpisodeSerie extends StatefulWidget {
   const ItemEpisodeSerie({Key? key, required this.episode, required this.serie})

@@ -1,16 +1,15 @@
-import 'package:apptv/components/ItemMove.dart';
-import 'package:apptv/controller/HttpController.dart';
-import 'package:apptv/controller/functions.dart';
-import 'package:apptv/models/ResponseCategoriesMoviesAPI.dart';
-import 'package:apptv/models/ResponseStorageAPI.dart';
-import 'package:apptv/pages/Home.dart';
-import 'package:apptv/pages/channels/WathRecentPage.dart';
-import 'package:apptv/pages/series/AllSeries.dart';
-import 'package:apptv/pages/series/RecentsSeries.dart';
-import 'package:apptv/pages/series/ViewSeriesCategoryPage.dart';
-import 'package:apptv/pages/series/favouritesSeries.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
+
+import '../../components/ItemMove.dart';
+import '../../controller/HttpController.dart';
+import '../../controller/functions.dart';
+import '../../models/ResponseCategoriesMoviesAPI.dart';
+import '../../models/ResponseStorageAPI.dart';
+import 'AllSeries.dart';
+import 'RecentsSeries.dart';
+import 'ViewSeriesCategoryPage.dart';
+import 'favouritesSeries.dart';
 
 class CategorySeriesPage extends StatefulWidget {
   const CategorySeriesPage({Key? key}) : super(key: key);

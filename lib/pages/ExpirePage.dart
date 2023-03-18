@@ -1,8 +1,9 @@
 import 'dart:math';
-import 'package:apptv/components/ItemMove.dart';
-import 'package:apptv/pages/ChangeServerPage.dart';
 import 'package:flutter/material.dart';
 import 'package:lottie/lottie.dart';
+
+import '../components/ItemMove.dart';
+import 'ChangeServerPage.dart';
 
 class ExpirePage extends StatelessWidget {
   const ExpirePage({Key? key}) : super(key: key);

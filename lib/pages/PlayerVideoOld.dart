@@ -1,13 +1,14 @@
-import 'package:apptv/components/ItemMove.dart';
-import 'package:apptv/controller/functions.dart';
-import 'package:apptv/models/ResponseChannelAPI.dart';
-import 'package:apptv/models/ResponseStorageAPI.dart';
-import 'package:apptv/models/SettingsData.dart';
 import 'package:chewie/chewie.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:video_player/video_player.dart';
+
+import '../components/ItemMove.dart';
+import '../controller/functions.dart';
+import '../models/ResponseChannelAPI.dart';
+import '../models/ResponseStorageAPI.dart';
+import '../models/SettingsData.dart';
 
 class PlayerVideoOld extends StatefulWidget {
   const PlayerVideoOld({Key? key}) : super(key: key);

@@ -1,10 +1,8 @@
-import 'package:apptv/components/ItemMovie.dart';
-import 'package:apptv/controller/functions.dart';
-import 'package:apptv/models/ResponseMoviesCategory.dart';
-import 'package:apptv/pages/movies/MovieDetails.dart';
 import 'package:flutter/material.dart';
-
+import '../../components/ItemMovie.dart';
 import '../../controller/HttpController.dart';
+import '../../controller/functions.dart';
+import '../../models/ResponseMoviesCategory.dart';
 import '../../models/ResponseStorageAPI.dart';
 class FavouritesMoviesPage extends StatefulWidget {
   const FavouritesMoviesPage({Key? key}) : super(key: key);

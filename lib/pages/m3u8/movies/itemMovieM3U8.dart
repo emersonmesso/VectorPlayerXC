@@ -1,5 +1,5 @@
-import 'package:apptv/models/ListM3U8/ResponseListM3U8Channel.dart';
 import 'package:flutter/material.dart';
+import '../../../models/ListM3U8/ResponseListM3U8Channel.dart';
 class ItemMovieM3U8 extends StatelessWidget {
   const ItemMovieM3U8({Key? key, required this.movie}) : super(key: key);
   final ListChannels movie;

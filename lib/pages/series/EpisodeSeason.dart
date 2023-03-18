@@ -1,13 +1,13 @@
-import 'package:apptv/components/itemEpisodeSerie.dart';
-import 'package:apptv/controller/functions.dart';
-import 'package:apptv/controller/seriesDAO/SeriesDAO.dart';
-import 'package:apptv/models/ResponseCategorySeries.dart';
-import 'package:apptv/models/ResponseStorageAPI.dart';
-import 'package:apptv/models/Serie/ResponseInfoSerieEpisode.dart';
-import 'package:apptv/pages/series/PLayerEpisodeSerie.dart';
 import 'package:flutter/material.dart';
 
 import '../../components/ItemMove.dart';
+import '../../components/itemEpisodeSerie.dart';
+import '../../controller/functions.dart';
+import '../../controller/seriesDAO/SeriesDAO.dart';
+import '../../models/ResponseCategorySeries.dart';
+import '../../models/ResponseStorageAPI.dart';
+import '../../models/Serie/ResponseInfoSerieEpisode.dart';
+import 'PLayerEpisodeSerie.dart';
 
 class EpisodeSeason extends StatefulWidget {
   const EpisodeSeason(

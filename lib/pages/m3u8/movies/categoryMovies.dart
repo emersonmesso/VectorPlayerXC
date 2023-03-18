@@ -1,9 +1,9 @@
-import 'package:apptv/components/ItemMove.dart';
-import 'package:apptv/controller/M3U8/m3u8DAO.dart';
-import 'package:apptv/models/ListM3U8/ResponseListM3U8Channel.dart';
-import 'package:apptv/pages/m3u8/channels/listChannels.dart';
-import 'package:apptv/pages/m3u8/movies/moviesFromCategory.dart';
 import 'package:flutter/material.dart';
+
+import '../../../components/ItemMove.dart';
+import '../../../controller/M3U8/m3u8DAO.dart';
+import '../../../models/ListM3U8/ResponseListM3U8Channel.dart';
+import 'moviesFromCategory.dart';
 
 class CategoryMoviesPage extends StatefulWidget {
   const CategoryMoviesPage({Key? key}) : super(key: key);

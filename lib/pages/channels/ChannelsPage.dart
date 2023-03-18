@@ -1,15 +1,16 @@
-import 'package:apptv/components/ItemMove.dart';
-import 'package:apptv/controller/HttpController.dart';
-import 'package:apptv/controller/functions.dart';
-import 'package:apptv/models/ResponseChannelsAPI.dart';
-import 'package:apptv/models/ResponseStorageAPI.dart';
-import 'package:apptv/models/SettingsData.dart';
-import 'package:apptv/pages/channels/AllChannelsPage.dart';
-import 'package:apptv/pages/channels/ChannelPage.dart';
-import 'package:apptv/pages/channels/FavouritesChannels.dart';
-import 'package:apptv/pages/channels/WathRecentPage.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
+
+import '../../components/ItemMove.dart';
+import '../../controller/HttpController.dart';
+import '../../controller/functions.dart';
+import '../../models/ResponseChannelsAPI.dart';
+import '../../models/ResponseStorageAPI.dart';
+import '../../models/SettingsData.dart';
+import 'AllChannelsPage.dart';
+import 'ChannelPage.dart';
+import 'FavouritesChannels.dart';
+import 'WathRecentPage.dart';
 
 class ChannelsPage extends StatefulWidget {
   const ChannelsPage({Key? key}) : super(key: key);
