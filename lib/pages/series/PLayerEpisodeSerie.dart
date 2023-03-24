@@ -5,7 +5,6 @@ import 'package:flutter/material.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:pod_player/pod_player.dart';
 import 'package:flutter/services.dart';
-
 import '../../controller/functions.dart';
 import '../../models/ResponseCategorySeries.dart';
 import '../../models/ResponseStorageAPI.dart';

@@ -1,4 +1,4 @@
-import 'package:appvector/pages/m3u8/channels/VideoPlayerPage.dart';
+import 'package:apptv/pages/m3u8/channels/VideoPlayerPage.dart';
 import 'package:flutter/material.dart';
 import '../../../components/ItemMove.dart';
 import '../../../controller/functions.dart';

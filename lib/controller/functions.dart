@@ -3,7 +3,6 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:hive_flutter/adapters.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-
 import '../models/ListM3U8/ResponseListM3U8Channel.dart';
 import '../models/ListM3U8/ResponseListM3U8Series.dart';
 import '../models/ResponseChannelAPI.dart';
@@ -343,6 +342,13 @@ Future<bool> removeFavourite(ResponseChannelAPI channel, url) async {
   }
 }
 
+// Função que ordena a lista
+List<ResponseChannelAPI> ordernarLista(List<ResponseChannelAPI> lista) {
+  List<ResponseChannelAPI> ordernado = lista.toList();
+  ordernado.sort((a, b) => a.name!.compareTo(b.name!));
+  return ordernado;
+}
+
 Future<List<ResponseChannelAPI>?> getListFavourites(url) async {
   final prefs = await SharedPreferences.getInstance();
   //buscando a lista salva
@@ -360,6 +366,7 @@ Future<List<ResponseChannelAPI>?> getListFavourites(url) async {
       }
     });
     //adicionando o novo canal na lista
+    listaNova = ordernarLista(listaNova);
     return listaNova;
   } else {
     List<ResponseChannelAPI>? listaNova = <ResponseChannelAPI>[];

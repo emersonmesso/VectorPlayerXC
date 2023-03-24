@@ -1,7 +1,9 @@
+import 'package:apptv/pages/VideoPlayerMP4.dart';
 import 'package:chewie/chewie.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:fluttertoast/fluttertoast.dart';
+import 'package:get/get.dart';
 import 'package:pod_player/pod_player.dart';
 import '../../components/ItemMove.dart';
 import '../../controller/HttpController.dart';
@@ -28,8 +30,6 @@ class _MovieDetailsState extends State<MovieDetails> {
   late ResponseStorageAPI responseStorageAPI;
   HTTpController api_controller = HTTpController();
   late ResponseAPITMDB dadosAPITMDB;
-  late ChewieController controller;
-  late VideoPlayerController videoPlayerController;
   late SettingsData settings;
 
   @override
@@ -67,9 +67,9 @@ class _MovieDetailsState extends State<MovieDetails> {
                               Colors.black.withOpacity(0.2), BlendMode.dstATop),
                           image: (dadosAPITMDB.backdropPath != null)
                               ? NetworkImage(
-                                  "https://image.tmdb.org/t/p/original${dadosAPITMDB.backdropPath}")
+                                  "http://image.tmdb.org/t/p/original${dadosAPITMDB.backdropPath}")
                               : const NetworkImage(
-                                  "https://vectorplayer.com/_core/_img/back-clean.png"),
+                                  "http://vectorplayer.com/_core/_img/back-clean.png"),
                           fit: BoxFit.cover,
                         ),
                       ),
@@ -114,37 +114,24 @@ class _MovieDetailsState extends State<MovieDetails> {
                             child: Row(
                               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                               children: [
-                                (isPlaying == false)
-                                    ? ItemMove(
-                                        corBorda: Colors.white,
-                                        isCategory: true,
-                                        callback: () {
-                                          setState(() {
-                                            isPlaying = true;
-                                            videoPlayerController.play();
-                                          });
-                                        },
-                                        child: const Icon(
-                                          Icons.play_circle_fill_outlined,
-                                          size: 50,
-                                          color: Colors.red,
-                                        ),
-                                      )
-                                    : ItemMove(
-                                        corBorda: Colors.white,
-                                        isCategory: true,
-                                        callback: () {
-                                          setState(() {
-                                            !isPlaying;
-                                          });
-                                          videoPlayerController.pause();
-                                        },
-                                        child: const Icon(
-                                          Icons.pause_circle_filled_outlined,
-                                          size: 50,
-                                          color: Colors.red,
-                                        ),
+                                ItemMove(
+                                  corBorda: Colors.white,
+                                  isCategory: true,
+                                  callback: () {
+                                    Get.to(
+                                      () => VideoPlayerMP4(
+                                        id: movie.streamId!.toString(),
+                                        title: movie.name!,
+                                        type: true,
                                       ),
+                                    );
+                                  },
+                                  child: const Icon(
+                                    Icons.play_circle_fill_outlined,
+                                    size: 50,
+                                    color: Colors.red,
+                                  ),
+                                ),
                                 (isFavourite == false)
                                     ? ItemMove(
                                         corBorda: Colors.white,
@@ -166,18 +153,6 @@ class _MovieDetailsState extends State<MovieDetails> {
                                           color: Colors.red,
                                         ),
                                       ),
-                                (isPlaying)
-                                    ? ItemMove(
-                                        corBorda: Colors.white,
-                                        isCategory: true,
-                                        callback: _enterFullScreen,
-                                        child: const Icon(
-                                          Icons.fullscreen,
-                                          size: 50,
-                                          color: Colors.red,
-                                        ),
-                                      )
-                                    : Container(),
                               ],
                             ),
                           ),
@@ -190,50 +165,6 @@ class _MovieDetailsState extends State<MovieDetails> {
                         padding: const EdgeInsets.all(10.0),
                         child: ListView(
                           children: [
-                            Visibility(
-                              visible: true,
-                              child: ItemMove(
-                                corBorda: Colors.transparent,
-                                callback: () {
-                                  controller.enterFullScreen();
-                                },
-                                isCategory: true,
-                                child: Container(
-                                  height: (MediaQuery.of(context).size.height *
-                                          60) /
-                                      100,
-                                  padding: const EdgeInsets.all(10.0),
-                                  decoration: BoxDecoration(
-                                    color: Theme.of(context).backgroundColor,
-                                    borderRadius: BorderRadius.circular(10.0),
-                                  ),
-                                  child: Stack(
-                                    children: [
-                                      (isBuffering)
-                                          ? Positioned(
-                                              child: Container(
-                                                color: Colors.transparent,
-                                                child: const Center(
-                                                  child:
-                                                      CircularProgressIndicator(),
-                                                ),
-                                              ),
-                                            )
-                                          : Container(),
-                                      Positioned(
-                                        top: 0,
-                                        bottom: 0,
-                                        right: 0,
-                                        left: 0,
-                                        child: Chewie(
-                                          controller: controller,
-                                        ),
-                                      ),
-                                    ],
-                                  ),
-                                ),
-                              ),
-                            ),
                             Text(
                               movie.name!,
                               style: const TextStyle(
@@ -288,140 +219,48 @@ class _MovieDetailsState extends State<MovieDetails> {
     try {
       //buscando os dados Da API TMDB
       var myString = movie.name;
-      final splitted = myString?.split('(');
-      var aStr = splitted![1].replaceAll(RegExp(r'[^0-9]'), '');
-      var ano = "";
-      if (aStr != null && aStr != "") {
-        ano = aStr;
-      }
-      print("Ano do Filme: " + aStr);
-      var response =
-          await api_controller.getInfoMovieFromTMDB(splitted?[0], ano);
-      if (response != null) {
-        if (response.id != 0) {
-          setState(() {
-            dadosAPITMDB = response;
-            isLoading = false;
-          });
-          print(
-              '${responseStorageAPI.url}movie/${responseStorageAPI.username}/${responseStorageAPI.password}/${movie.streamId}.mp4');
-          videoPlayerController = VideoPlayerController.network(
-              '${responseStorageAPI.url}movie/${responseStorageAPI.username}/${responseStorageAPI.password}/${movie.streamId}.mp4');
-
-          videoPlayerController.addListener(() {
-            if (videoPlayerController.value.isPlaying) {
-              setState(() {
-                isPlaying = true;
-              });
-            } else {
-              setState(() {
-                isPlaying = false;
-              });
-            }
-            if (videoPlayerController.value.isBuffering) {
-              setState(() {
-                isBuffering = true;
-              });
-            } else {
-              setState(() {
-                isBuffering = false;
-              });
-            }
-            if (videoPlayerController.value.hasError) {
-              Fluttertoast.showToast(
-                msg: "Vídeo não encontrado!",
-                toastLength: Toast.LENGTH_SHORT,
-                gravity: ToastGravity.BOTTOM_RIGHT,
-                timeInSecForIosWeb: 1,
-                backgroundColor: Colors.red,
-                textColor: Colors.white,
-                fontSize: 16.0,
-              );
-              Navigator.pop(context);
-            }
-          });
-          controller = ChewieController(
-            autoInitialize: true,
-            showControlsOnInitialize: false,
-            allowPlaybackSpeedChanging: false,
-            allowedScreenSleep: false,
-            showOptions: false,
-            videoPlayerController: videoPlayerController,
-            fullScreenByDefault: settings.openFullScreen!,
-            aspectRatio: MediaQuery.of(context).devicePixelRatio,
-            deviceOrientationsAfterFullScreen: [
-              DeviceOrientation.landscapeRight,
-              DeviceOrientation.landscapeLeft,
-            ],
-          );
+      if (myString!.contains(")")) {
+        final splitted = myString?.split('(');
+        var aStr = splitted![1].replaceAll(RegExp(r'[^0-9]'), '');
+        var ano = "";
+        if (aStr != null && aStr != "") {
+          ano = aStr;
+        }
+        print("Ano do Filme: " + aStr);
+        var response =
+            await api_controller.getInfoMovieFromTMDB(splitted?[0], ano);
+        print(response.toString());
+        if (response != null) {
+          if (response.id != 0) {
+            setState(() {
+              dadosAPITMDB = response;
+              isLoading = false;
+            });
+          } else {
+            //não tem dados
+            setState(() {
+              isLoading = false;
+            });
+          }
         } else {
-          //não tem dados
-          setState(() {
-            isLoading = false;
-          });
-          videoPlayerController = VideoPlayerController.network(
-              '${responseStorageAPI.url}movie/${responseStorageAPI.username}/${responseStorageAPI.password}/${movie.streamId}.mp4');
-          videoPlayerController.addListener(() {
-            if (videoPlayerController.value.isPlaying) {
-              print("Play");
-              setState(() {
-                isPlaying = true;
-              });
-            } else {
-              setState(() {
-                isPlaying = false;
-              });
-            }
-            if (videoPlayerController.value.isBuffering) {
-              setState(() {
-                isBuffering = true;
-              });
-            } else {
-              setState(() {
-                isBuffering = false;
-              });
-            }
-            if (videoPlayerController.value.hasError) {
-              Fluttertoast.showToast(
-                msg: "Vídeo não encontrado!",
-                toastLength: Toast.LENGTH_SHORT,
-                gravity: ToastGravity.BOTTOM_RIGHT,
-                timeInSecForIosWeb: 1,
-                backgroundColor: Colors.red,
-                textColor: Colors.white,
-                fontSize: 16.0,
-              );
-              Navigator.pop(context);
-            }
-          });
-          controller = ChewieController(
-            autoInitialize: true,
-            showControlsOnInitialize: false,
-            allowPlaybackSpeedChanging: false,
-            allowedScreenSleep: false,
-            showOptions: false,
-            aspectRatio: MediaQuery.of(context).devicePixelRatio,
-            videoPlayerController: videoPlayerController,
-            fullScreenByDefault: settings.openFullScreen!,
-            deviceOrientationsAfterFullScreen: [
-              DeviceOrientation.landscapeRight,
-              DeviceOrientation.landscapeLeft,
-            ],
+          Fluttertoast.showToast(
+            msg: "Filme não disponível!",
+            toastLength: Toast.LENGTH_SHORT,
+            gravity: ToastGravity.BOTTOM_RIGHT,
+            timeInSecForIosWeb: 1,
+            backgroundColor: Colors.red,
+            textColor: Colors.white,
+            fontSize: 16.0,
           );
+          Navigator.pop(context);
         }
       } else {
-        Fluttertoast.showToast(
-          msg: "Filme não disponível!",
-          toastLength: Toast.LENGTH_SHORT,
-          gravity: ToastGravity.BOTTOM_RIGHT,
-          timeInSecForIosWeb: 1,
-          backgroundColor: Colors.red,
-          textColor: Colors.white,
-          fontSize: 16.0,
-        );
-        Navigator.pop(context);
+        setState(() {
+          isLoading = false;
+        });
       }
     } catch (e) {
+      print(e.toString());
       Fluttertoast.showToast(
         msg: "Filme não dispoível!",
         toastLength: Toast.LENGTH_SHORT,
@@ -437,8 +276,6 @@ class _MovieDetailsState extends State<MovieDetails> {
 
   @override
   void dispose() {
-    videoPlayerController.dispose();
-    controller.dispose();
     super.dispose();
   }
 
@@ -458,9 +295,5 @@ class _MovieDetailsState extends State<MovieDetails> {
         isFavourite = false;
       });
     }
-  }
-
-  _enterFullScreen() {
-    controller.enterFullScreen();
   }
 }

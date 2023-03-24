@@ -339,10 +339,10 @@ class HTTpController {
   Future<ResponseAPITMDB?> getInfoMovieFromTMDB(name, ano) async {
     var response = await http.get(
       Uri.parse(
-          'https://api.themoviedb.org/3/search/movie?api_key=68950d5caedeef53ea66ee64fdc2e025&language=pt-BR&query=${Uri.encodeComponent(name).toLowerCase()}'),
+          'http://api.themoviedb.org/3/search/movie?api_key=68950d5caedeef53ea66ee64fdc2e025&language=pt-BR&query=${Uri.encodeComponent(name).toLowerCase()}'),
     );
     print(
-        "LINK: https://api.themoviedb.org/3/search/movie?api_key=68950d5caedeef53ea66ee64fdc2e025&language=pt-BR&query=${Uri.encodeComponent(name).toLowerCase()}");
+        "LINK: http://api.themoviedb.org/3/search/movie?api_key=68950d5caedeef53ea66ee64fdc2e025&language=pt-BR&query=${Uri.encodeComponent(name).toLowerCase()}");
     if (response.statusCode == 200) {
       var responseData = json.decode(response.body);
       if (responseData['total_results'] > 0) {

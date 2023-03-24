@@ -13,6 +13,12 @@ import '../../models/ResponseChannelEPG.dart';
 import '../../models/ResponseStorageAPI.dart';
 import '../../models/SettingsData.dart';
 
+const String keyUp = 'Arrow Up';
+const String keyDown = 'Arrow Down';
+const String keyLeft = 'Arrow Left';
+const String keyRight = 'Arrow Right';
+const String keyCenter = 'Select';
+
 class VideoPlayerPageM3U8 extends StatefulWidget {
   const VideoPlayerPageM3U8({Key? key, required this.channel})
       : super(key: key);
@@ -356,6 +362,9 @@ class _VideoPlayerPageM3U8State extends State<VideoPlayerPageM3U8> {
           isPlaying = true;
           videoPlayerController.play();
         });
+        if (settings.openFullScreen!) {
+          pushFullScreenVideo();
+        }
       });
 
     videoPlayerController.addListener(() {
@@ -427,9 +436,33 @@ class _VideoPlayerPageM3U8State extends State<VideoPlayerPageM3U8> {
     }
   }
 
+  actionCenter() {
+    if (videoPlayerController.value.isPlaying) {
+      videoPlayerController.pause();
+    } else {
+      videoPlayerController.play();
+    }
+  }
+
   handleKey(RawKeyEvent key) {
-    print(
-        'KeyCode: ${key.physicalKey.debugName}, CodePoint: ${key.data.logicalKey.keyId},');
+    if (key.runtimeType.toString() == 'RawKeyDownEvent') {
+      print(key.logicalKey.keyLabel);
+      switch (key.logicalKey.keyLabel) {
+        case keyCenter:
+          actionCenter();
+          break;
+        case keyUp:
+          break;
+        case keyDown:
+          break;
+        case keyLeft:
+          break;
+        case keyRight:
+          break;
+        default:
+          break;
+      }
+    }
   }
 
   void pushFullScreenVideo() {
@@ -454,30 +487,26 @@ class _VideoPlayerPageM3U8State extends State<VideoPlayerPageM3U8> {
           return Scaffold(
             backgroundColor: Colors.transparent,
             body: RawKeyboardListener(
+              autofocus: true,
+              includeSemantics: true,
               focusNode: FocusNode(),
-              onKey: (key) => handleKey(key),
-              child: Dismissible(
-                key: const Key('key'),
-                direction: DismissDirection.vertical,
-                onDismissed: (_) => Navigator.of(context).pop(),
-                child: OrientationBuilder(
-                  builder: (context, orientation) {
-                    bool isPortrait = orientation == Orientation.portrait;
-                    return Center(
-                      child: Stack(
-                        //This will help to expand video in Horizontal mode till last pixel of screen
-                        fit: isPortrait ? StackFit.loose : StackFit.expand,
-                        children: [
-                          AspectRatio(
-                            aspectRatio:
-                                videoPlayerController.value.aspectRatio,
-                            child: VideoPlayer(videoPlayerController),
-                          ),
-                        ],
-                      ),
-                    );
-                  },
-                ),
+              onKey: ((key) => handleKey(key)),
+              child: OrientationBuilder(
+                builder: (context, orientation) {
+                  bool isPortrait = orientation == Orientation.portrait;
+                  return Center(
+                    child: Stack(
+                      //This will help to expand video in Horizontal mode till last pixel of screen
+                      fit: isPortrait ? StackFit.loose : StackFit.expand,
+                      children: [
+                        AspectRatio(
+                          aspectRatio: videoPlayerController.value.aspectRatio,
+                          child: VideoPlayer(videoPlayerController),
+                        ),
+                      ],
+                    ),
+                  );
+                },
               ),
             ),
           );
@@ -486,8 +515,6 @@ class _VideoPlayerPageM3U8State extends State<VideoPlayerPageM3U8> {
     )
         .then(
       (value) {
-//This will help you to set previous Device orientations of screen so App will continue for portrait mode
-
         SystemChrome.setEnabledSystemUIOverlays(SystemUiOverlay.values);
         SystemChrome.setPreferredOrientations(
           [

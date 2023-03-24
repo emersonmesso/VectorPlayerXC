@@ -1,5 +1,6 @@
+import 'package:apptv/pages/VideoPlayerMP4.dart';
 import 'package:flutter/material.dart';
-
+import 'package:get/get.dart';
 import '../../components/ItemMove.dart';
 import '../../components/itemEpisodeSerie.dart';
 import '../../controller/functions.dart';
@@ -7,7 +8,6 @@ import '../../controller/seriesDAO/SeriesDAO.dart';
 import '../../models/ResponseCategorySeries.dart';
 import '../../models/ResponseStorageAPI.dart';
 import '../../models/Serie/ResponseInfoSerieEpisode.dart';
-import 'PLayerEpisodeSerie.dart';
 
 class EpisodeSeason extends StatefulWidget {
   const EpisodeSeason(
@@ -52,13 +52,11 @@ class _EpisodeSeasonState extends State<EpisodeSeason> {
           itemBuilder: (context, index) {
             return ItemMove(
               callback: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                    builder: (context) => PlayerEpidode(
-                      serie: widget.serie,
-                      episode: episodios![index],
-                    ),
+                Get.to(
+                  () => VideoPlayerMP4(
+                    type: false,
+                    title: episodios![index].title!,
+                    id: episodios![index].id!,
                   ),
                 );
               },

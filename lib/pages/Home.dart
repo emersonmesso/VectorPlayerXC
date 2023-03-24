@@ -1,12 +1,11 @@
 import 'dart:async';
-import 'package:appvector/controller/HomeController.dart';
-import 'package:appvector/pages/series/CategorySeriesPage.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
 import 'package:google_mobile_ads/google_mobile_ads.dart';
 import '../ad_helper.dart';
 import '../components/ItemMove.dart';
+import '../controller/HomeController.dart';
 import '../controller/HttpController.dart';
 import '../controller/functions.dart';
 import '../models/ResponseActiveAPI.dart';
@@ -20,6 +19,7 @@ import 'channels/ChannelsPage.dart';
 import 'm3u8/DownloadScreenListm3u8.dart';
 import 'm3u8/HomeScreenListM3U8.dart';
 import 'movies/CategoriesMoviesPage.dart';
+import 'series/CategorySeriesPage.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({Key? key}) : super(key: key);
