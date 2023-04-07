@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
-
 import '../../components/ItemMove.dart';
 import '../../controller/HttpController.dart';
 import '../../controller/functions.dart';
@@ -201,7 +200,7 @@ class _ChannelsPageState extends State<ChannelsPage> {
       });
     } else {
       Fluttertoast.showToast(
-        msg: "Não encontramos os Canais desta categoria!",
+        msg: "Sem Categorias!",
         toastLength: Toast.LENGTH_SHORT,
         gravity: ToastGravity.BOTTOM_RIGHT,
         timeInSecForIosWeb: 1,

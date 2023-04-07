@@ -158,6 +158,12 @@ class HTTpController {
   Future<List<ResponseChannelsAPI>?> getAllCategoryChannels(
       url, username, password) async {
     try {
+      print(Uri.parse(url +
+          'player_api.php?username=' +
+          username +
+          '&password=' +
+          password +
+          '&action=get_live_categories'));
       var response = await http.get(Uri.parse(url +
           'player_api.php?username=' +
           username +

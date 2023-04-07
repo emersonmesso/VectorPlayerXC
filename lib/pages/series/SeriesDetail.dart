@@ -1,6 +1,7 @@
 import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
+import 'package:get/get.dart';
 import 'package:google_mobile_ads/google_mobile_ads.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:intl/intl.dart';
@@ -267,17 +268,13 @@ class _SeriesDetailPageState extends State<SeriesDetailPage> {
                                     visible: !isTV,
                                     child: ItemMove(
                                       corBorda: Colors.red,
-                                      isCategory: true,
+                                      isCategory: false,
                                       callback: () {
-                                        Navigator.push(
-                                          context,
-                                          MaterialPageRoute(
-                                            builder: (context) =>
-                                                SeasonsSerieDetail(
-                                              title: serie.name!,
-                                              serie: serieInfo,
-                                              serieInfo: serie,
-                                            ),
+                                        Get.to(
+                                          SeasonsSerieDetail(
+                                            title: serie.name!,
+                                            serie: serieInfo,
+                                            serieInfo: serie,
                                           ),
                                         );
                                       },

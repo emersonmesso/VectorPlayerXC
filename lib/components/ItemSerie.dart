@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 
 import '../models/ResponseCategorySeries.dart';
 import '../pages/series/SeriesDetail.dart';
@@ -25,25 +26,19 @@ class _ItemSerieState extends State<ItemSerie> {
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: () {
-        Navigator.push(
-          context,
-          MaterialPageRoute(
-            builder: (context) => SeriesDetailPage(
-              serie: serie!,
-            ),
+        Get.to(
+          SeriesDetailPage(
+            serie: serie!,
           ),
         );
       },
       child: ItemMove(
         corBorda: Colors.white,
         isCategory: true,
-        callback: (){
-          Navigator.push(
-            context,
-            MaterialPageRoute(
-              builder: (context) => SeriesDetailPage(
-                serie: serie!,
-              ),
+        callback: () {
+          Get.to(
+            SeriesDetailPage(
+              serie: serie!,
             ),
           );
         },

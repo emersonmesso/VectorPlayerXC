@@ -5,7 +5,6 @@ import 'package:get/get.dart';
 import 'package:hexcolor/hexcolor.dart';
 import 'package:hive_flutter/adapters.dart';
 import 'package:path_provider/path_provider.dart';
-
 import 'pages/SplashScreen.dart';
 
 void main() async {

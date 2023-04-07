@@ -3,6 +3,7 @@ import 'package:apptv/components/ItemMove.dart';
 import 'package:apptv/models/ResponseChannelEPG.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:get/get.dart';
 import 'package:video_player/video_player.dart';
 import '../../controller/functions.dart';
 import '../../models/ResponseChannelAPI.dart';
@@ -34,9 +35,11 @@ class _FavouritesChannelPageState extends State<FavouritesChannelPage> {
   late String nameChannel;
   late bool isBuffering;
   late int indexChannel;
+  late bool isFavourites;
 
   @override
   void initState() {
+    isFavourites = false;
     isLoading = true;
     isBuffering = false;
     nameChannel = "";
@@ -60,112 +63,154 @@ class _FavouritesChannelPageState extends State<FavouritesChannelPage> {
           ? const Center(
               child: CircularProgressIndicator(),
             )
-          : Row(
-              children: [
-                Expanded(
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      SizedBox(
-                        width: MediaQuery.of(context).size.width,
-                        height: (MediaQuery.of(context).size.height * 50) / 100,
-                        child: Stack(
-                          children: [
-                            Positioned(
-                              top: 0,
-                              bottom: 0,
-                              right: 0,
-                              left: 0,
-                              child: AspectRatio(
-                                aspectRatio:
-                                    videoPlayerController.value.aspectRatio,
-                                child: VideoPlayer(
-                                  videoPlayerController,
-                                ),
-                              ),
-                            ),
-                            Visibility(
-                              visible: isBuffering,
-                              child: const Positioned(
-                                top: 0,
-                                bottom: 0,
-                                right: 0,
-                                left: 0,
-                                child: Center(
-                                  child: CircularProgressIndicator(),
-                                ),
-                              ),
-                            ),
-                          ],
-                        ),
-                      ),
-                      Expanded(
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Text(
-                              nameChannel,
-                              style: const TextStyle(
-                                color: Colors.white,
-                                fontSize: 18,
-                              ),
-                            ),
-                            (listaEPG.length > 0)
-                                ? ItemEPG(
-                                    title: listaEPG[0].title!,
-                                    startTime: listaEPG[0].sStart!,
-                                    stopTime: listaEPG[0].sStop!,
-                                    index: 0,
-                                  )
-                                : Container(),
-                          ],
-                        ),
-                      ),
-                    ],
+          : (!isFavourites)
+              ? const Center(
+                  child: Text(
+                    "Sem Canais Favoritos!",
+                    style: TextStyle(
+                      color: Colors.white,
+                      fontSize: 30,
+                    ),
                   ),
-                ),
-                SizedBox(
-                  width: (MediaQuery.of(context).size.width * 40) / 100,
-                  height: MediaQuery.of(context).size.height,
-                  child: ListView.builder(
-                      itemCount: listaFavourites.length,
-                      itemBuilder: (context, index) {
-                        return ItemMove(
-                          callback: () {
-                            setState(() {
-                              indexChannel = index;
-                            });
-                            actionEnterChannel(listaFavourites[index]);
-                          },
-                          corBorda: Colors.white,
-                          isCategory: true,
-                          child: Padding(
-                            padding: const EdgeInsets.all(3.0),
-                            child: Container(
-                              decoration: BoxDecoration(
-                                color: Theme.of(context).accentColor,
-                              ),
-                              height: 50,
-                              child: Column(
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                children: [
-                                  Text(
-                                    listaFavourites[index].name!,
-                                    style: const TextStyle(
-                                      color: Colors.white,
-                                      fontSize: 18,
-                                      fontWeight: FontWeight.bold,
+                )
+              : Row(
+                  children: [
+                    Expanded(
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          SizedBox(
+                            width: MediaQuery.of(context).size.width,
+                            height:
+                                (MediaQuery.of(context).size.height * 50) / 100,
+                            child: Stack(
+                              children: [
+                                Positioned(
+                                  top: 0,
+                                  bottom: 0,
+                                  right: 0,
+                                  left: 0,
+                                  child: AspectRatio(
+                                    aspectRatio:
+                                        videoPlayerController.value.aspectRatio,
+                                    child: VideoPlayer(
+                                      videoPlayerController,
                                     ),
                                   ),
-                                ],
-                              ),
+                                ),
+                                Visibility(
+                                  visible: isBuffering,
+                                  child: const Positioned(
+                                    top: 0,
+                                    bottom: 0,
+                                    right: 0,
+                                    left: 0,
+                                    child: Center(
+                                      child: CircularProgressIndicator(),
+                                    ),
+                                  ),
+                                ),
+                              ],
                             ),
                           ),
-                        );
-                      }),
+                          Expanded(
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Row(
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceBetween,
+                                  children: [
+                                    Text(
+                                      nameChannel,
+                                      style: const TextStyle(
+                                        color: Colors.white,
+                                        fontSize: 22,
+                                      ),
+                                    ),
+                                    ItemMove(
+                                      callback: () async {
+                                        if (await removeFavourite(
+                                            listaFavourites[indexChannel],
+                                            responseStorageAPI.url)) {
+                                          Get.back();
+                                        }
+                                      },
+                                      isCategory: true,
+                                      corBorda: Colors.white,
+                                      child: IconButton(
+                                        onPressed: () async {
+                                          if (await removeFavourite(
+                                              listaFavourites[indexChannel],
+                                              responseStorageAPI.url)) {
+                                            Get.back();
+                                          }
+                                        },
+                                        icon: const Icon(
+                                          Icons.favorite,
+                                          size: 35,
+                                          color: Colors.red,
+                                        ),
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                                (listaEPG.length > 0)
+                                    ? ItemEPG(
+                                        title: listaEPG[0].title!,
+                                        startTime: listaEPG[0].sStart!,
+                                        stopTime: listaEPG[0].sStop!,
+                                        index: 0,
+                                      )
+                                    : Container(),
+                              ],
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                    SizedBox(
+                      width: (MediaQuery.of(context).size.width * 40) / 100,
+                      height: MediaQuery.of(context).size.height,
+                      child: ListView.builder(
+                          itemCount: listaFavourites.length,
+                          itemBuilder: (context, index) {
+                            return ItemMove(
+                              callback: () {
+                                setState(() {
+                                  indexChannel = index;
+                                });
+                                actionEnterChannel(listaFavourites[index]);
+                              },
+                              corBorda: Colors.white,
+                              isCategory: true,
+                              child: Padding(
+                                padding: const EdgeInsets.all(3.0),
+                                child: Container(
+                                  decoration: BoxDecoration(
+                                    color: Theme.of(context).accentColor,
+                                  ),
+                                  height: 50,
+                                  child: Column(
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    children: [
+                                      Text(
+                                        listaFavourites[index].name!,
+                                        style: const TextStyle(
+                                          color: Colors.white,
+                                          fontSize: 18,
+                                          fontWeight: FontWeight.bold,
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                              ),
+                            );
+                          }),
+                    ),
+                  ],
                 ),
-              ],
-            ),
     );
   }
 
@@ -187,45 +232,51 @@ class _FavouritesChannelPageState extends State<FavouritesChannelPage> {
         listaFavourites = response;
         isLoading = false;
       });
-
-      //inicia o primeiro canal da lista
-      videoPlayerController = VideoPlayerController.network(
-          '${responseStorageAPI.url}live/${responseStorageAPI.username}/${responseStorageAPI.password}/${listaFavourites[indexChannel].streamId}.m3u8')
-        ..initialize().then((value) {
-          setState(() {
-            nameChannel = listaFavourites[indexChannel].name!;
-            isPlaying = true;
-            isBuffering = false;
-            videoPlayerController.play();
-          });
-          getEPG(listaFavourites[0]);
-        }).onError((error, stackTrace) {
-          setState(() {
-            isPlaying = false;
-          });
+      if (response.length > 0) {
+        setState(() {
+          isFavourites = true;
         });
+        //inicia o primeiro canal da lista
+        videoPlayerController = VideoPlayerController.network(
+            '${responseStorageAPI.url}live/${responseStorageAPI.username}/${responseStorageAPI.password}/${listaFavourites[indexChannel].streamId}.m3u8')
+          ..initialize().then((value) {
+            setState(() {
+              nameChannel = listaFavourites[indexChannel].name!;
+              isPlaying = true;
+              isBuffering = false;
+              videoPlayerController.play();
+            });
+            getEPG(listaFavourites[0]);
+          }).onError((error, stackTrace) {
+            setState(() {
+              isPlaying = false;
+            });
+          });
 
-      videoPlayerController.addListener(() {
-        if (videoPlayerController.value.isPlaying) {
-          setState(() {
-            isPlaying = true;
-          });
-        } else {
-          setState(() {
-            isPlaying = false;
-          });
-        }
-        if (videoPlayerController.value.isBuffering) {
-          print("Carregando...");
-          setState(() {
-            isBuffering = true;
-          });
-        } else {
-          setState(() {
-            isBuffering = false;
-          });
-        }
-      });
+        videoPlayerController.addListener(() {
+          if (videoPlayerController.value.isPlaying) {
+            setState(() {
+              isPlaying = true;
+            });
+          } else {
+            setState(() {
+              isPlaying = false;
+            });
+          }
+          if (videoPlayerController.value.isBuffering) {
+            print("Carregando...");
+            setState(() {
+              isBuffering = true;
+            });
+          } else {
+            setState(() {
+              isBuffering = false;
+            });
+          }
+        });
+      } else {
+        //não tem canal favorito
+      }
     } else {
       //não tem nada a ser mostrado
       setState(() {

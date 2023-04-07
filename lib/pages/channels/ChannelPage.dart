@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
-
-import '../../components/ItemChannel.dart';
 import '../../components/ItemMove.dart';
+import '../../components/itemChannelTest.dart';
 import '../../controller/HttpController.dart';
 import '../../controller/functions.dart';
 import '../../models/ResponseChannelAPI.dart';
@@ -194,7 +193,7 @@ class _ChannelPageState extends State<ChannelPage> {
       });
     } else {
       Fluttertoast.showToast(
-        msg: "Não encontramos os Canais desta categoria!",
+        msg: "nenhuma categoria encontrada!",
         toastLength: Toast.LENGTH_SHORT,
         gravity: ToastGravity.BOTTOM_RIGHT,
         timeInSecForIosWeb: 1,

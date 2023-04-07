@@ -36,6 +36,7 @@ class _VideoPlayerPageM3U8State extends State<VideoPlayerPageM3U8> {
   late SettingsData settings;
   late bool isLoading;
   late bool isPlaying;
+  late bool isBuffering;
   late bool isFavourite = false;
   late bool isFullScreen = false;
   late int indexEPG = -1;
@@ -50,6 +51,7 @@ class _VideoPlayerPageM3U8State extends State<VideoPlayerPageM3U8> {
     isLoading = true;
     isPlaying = false;
     isFavourite = false;
+    isBuffering = true;
     isFullScreen = false;
     SystemChrome.setPreferredOrientations([
       DeviceOrientation.landscapeRight,
@@ -87,16 +89,21 @@ class _VideoPlayerPageM3U8State extends State<VideoPlayerPageM3U8> {
                     color: Colors.black,
                     child: Stack(
                       children: [
-                        (isLoading)
-                            ? Positioned(
-                                child: Container(
-                                  color: Colors.transparent,
-                                  child: const Center(
-                                    child: CircularProgressIndicator(),
-                                  ),
-                                ),
-                              )
-                            : Container(),
+                        Positioned(
+                          top: 0,
+                          bottom: 0,
+                          right: 0,
+                          left: 0,
+                          child: Visibility(
+                            visible: isBuffering,
+                            child: Container(
+                              color: Colors.transparent,
+                              child: const Center(
+                                child: CircularProgressIndicator(),
+                              ),
+                            ),
+                          ),
+                        ),
                         Positioned(
                           top: 0,
                           bottom: 0,
@@ -360,49 +367,46 @@ class _VideoPlayerPageM3U8State extends State<VideoPlayerPageM3U8> {
       ..initialize().then((value) {
         setState(() {
           isPlaying = true;
+          isBuffering = false;
           videoPlayerController.play();
+        });
+        videoPlayerController.addListener(() {
+          if (videoPlayerController.value.isBuffering) {
+            setState(() {
+              isBuffering = true;
+            });
+          } else {
+            setState(() {
+              isBuffering = false;
+            });
+          }
+          if (videoPlayerController.value.hasError) {
+            Fluttertoast.showToast(
+              msg: "Recarregando...",
+              toastLength: Toast.LENGTH_SHORT,
+              gravity: ToastGravity.BOTTOM_RIGHT,
+              timeInSecForIosWeb: 1,
+              backgroundColor: Colors.red,
+              textColor: Colors.white,
+              fontSize: 16.0,
+            );
+            videoPlayerController = VideoPlayerController.network(
+                '${responseStorageAPI.url}live/${responseStorageAPI.username}/${responseStorageAPI.password}/${channel.streamId}.m3u8')
+              ..initialize().then((value) {
+                setState(() {
+                  isPlaying = true;
+                  isBuffering = false;
+                  videoPlayerController.play();
+                });
+              });
+          }
         });
         if (settings.openFullScreen!) {
           pushFullScreenVideo();
         }
       });
 
-    videoPlayerController.addListener(() {
-      if (videoPlayerController.value.isPlaying) {
-        setState(() {
-          isPlaying = true;
-        });
-      } else {
-        setState(() {
-          isPlaying = false;
-        });
-      }
-
-      if (videoPlayerController.value.hasError) {
-        Fluttertoast.showToast(
-          msg: "Vídeo não encontrado!",
-          toastLength: Toast.LENGTH_SHORT,
-          gravity: ToastGravity.BOTTOM_RIGHT,
-          timeInSecForIosWeb: 1,
-          backgroundColor: Colors.red,
-          textColor: Colors.white,
-          fontSize: 16.0,
-        );
-        Navigator.pop(context);
-      }
-
-      if (videoPlayerController.value.isBuffering) {
-        setState(() {
-          isLoading = true;
-        });
-      } else {
-        setState(() {
-          isLoading = false;
-        });
-      }
-    });
-
-    if (isMobile()) {
+    if (!isMobile()) {
       //admob
       // TODO: Load a banner ad
       MobileAds.instance.updateRequestConfiguration(RequestConfiguration(
@@ -494,17 +498,27 @@ class _VideoPlayerPageM3U8State extends State<VideoPlayerPageM3U8> {
               child: OrientationBuilder(
                 builder: (context, orientation) {
                   bool isPortrait = orientation == Orientation.portrait;
-                  return Center(
-                    child: Stack(
-                      //This will help to expand video in Horizontal mode till last pixel of screen
-                      fit: isPortrait ? StackFit.loose : StackFit.expand,
-                      children: [
-                        AspectRatio(
-                          aspectRatio: videoPlayerController.value.aspectRatio,
-                          child: VideoPlayer(videoPlayerController),
+                  return Stack(
+                    //This will help to expand video in Horizontal mode till last pixel of screen
+                    fit: isPortrait ? StackFit.loose : StackFit.expand,
+                    children: [
+                      AspectRatio(
+                        aspectRatio: videoPlayerController.value.aspectRatio,
+                        child: VideoPlayer(videoPlayerController),
+                      ),
+                      Positioned(
+                        top: 0,
+                        bottom: 0,
+                        left: 0,
+                        right: 0,
+                        child: Visibility(
+                          visible: isBuffering,
+                          child: const Center(
+                            child: CircularProgressIndicator(),
+                          ),
                         ),
-                      ],
-                    ),
+                      ),
+                    ],
                   );
                 },
               ),

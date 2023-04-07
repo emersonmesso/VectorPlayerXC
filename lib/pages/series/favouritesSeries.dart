@@ -36,6 +36,7 @@ class _FavouritesSeriesState extends State<FavouritesSeries> {
         backgroundColor: Theme.of(context).backgroundColor,
         title: const Text("Séries Favoritas"),
         elevation: 0,
+        automaticallyImplyLeading: false,
       ),
       body: (isLoading)
           ? Container(
