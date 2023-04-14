@@ -1,8 +1,10 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:device_info_plus/device_info_plus.dart';
+import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:lottie/lottie.dart';
+import 'package:platform_device_id/platform_device_id.dart';
 import '../components/ItemMove.dart';
 import '../controller/HttpController.dart';
 import '../controller/functions.dart';
@@ -24,21 +26,45 @@ class _LoginPageState extends State<LoginPage> {
   HTTpController api_controller = HTTpController();
   late List<ResponseListAPI> listasAPI;
   late bool isLoading;
+  late String _deviceMAC = '';
 
   @override
   void initState() {
     isLoading = true;
+    initPlatformState();
     iniData(context);
     super.initState();
   }
 
+  Future<void> initPlatformState() async {
+    String? deviceId;
+    // Platform messages may fail, so we use a try/catch PlatformException.
+    try {
+      deviceId = await PlatformDeviceId.getDeviceId;
+    } on PlatformException {
+      deviceId = 'Failed to get deviceId.';
+    }
+
+    // If the widget was removed from the tree while the asynchronous platform
+    // message was in flight, we want to discard the reply rather than calling
+    // setState to update our non-existent appearance.
+    if (!mounted) return;
+
+    setState(() {
+      _deviceMAC = deviceId!.substring(0,8);
+      print("deviceId->$deviceId");
+    });
+  }
+
   void iniData(context) async {
-    if (defaultTargetPlatform == TargetPlatform.iOS || defaultTargetPlatform == TargetPlatform.android) {
+    if (defaultTargetPlatform == TargetPlatform.iOS ||
+        defaultTargetPlatform == TargetPlatform.android) {
       androidInfo = await deviceInfo.androidInfo;
       idAddress = androidInfo.id;
       print("$idAddress");
       //buscando os dados da API
-      List<ResponseListAPI>? l = await api_controller.getListsFromAPI(idAddress, "Android");
+      List<ResponseListAPI>? l =
+          await api_controller.getListsFromAPI(_deviceMAC, "Android");
       if (l!.length > 0) {
         //limpando a lista
         if (await saveDataAPI(l)) {
@@ -50,13 +76,15 @@ class _LoginPageState extends State<LoginPage> {
           isLoading = false;
         });
       }
-    }
-    else if (defaultTargetPlatform == TargetPlatform.linux || defaultTargetPlatform == TargetPlatform.macOS || defaultTargetPlatform == TargetPlatform.windows) {
+    } else if (defaultTargetPlatform == TargetPlatform.linux ||
+        defaultTargetPlatform == TargetPlatform.macOS ||
+        defaultTargetPlatform == TargetPlatform.windows) {
       // Some desktop specific code there
       var deviceinfo = await deviceInfo.webBrowserInfo;
       var deviceCode = deviceinfo.data['productSub'];
       idAddress = deviceCode;
-      List<ResponseListAPI>? l = await api_controller.getListsFromAPI(deviceCode, "Web");
+      List<ResponseListAPI>? l =
+          await api_controller.getListsFromAPI(_deviceMAC, "Web");
       if (l!.length > 0) {
         //limpando a lista
         if (await saveDataAPI(l)) {
@@ -68,8 +96,7 @@ class _LoginPageState extends State<LoginPage> {
           isLoading = false;
         });
       }
-    }
-    else {
+    } else {
       //web
     }
   }
@@ -80,7 +107,6 @@ class _LoginPageState extends State<LoginPage> {
 
   @override
   Widget build(BuildContext context) {
-
     return Scaffold(
       backgroundColor: Theme.of(context).backgroundColor,
       body: isLoading
@@ -150,13 +176,21 @@ class _LoginPageState extends State<LoginPage> {
                                     fontSize: 16,
                                   ),
                                 ),
-                                Text(
-                                  idAddress,
-                                  textAlign: TextAlign.center,
-                                  style: const TextStyle(
-                                    fontFamily: "Candy",
-                                    color: Colors.red,
-                                    fontSize: 16,
+                                ItemMove(
+                                  isCategory: true,
+                                  corBorda: Colors.white,
+                                  callback: () async {
+                                    await Clipboard.setData(
+                                        ClipboardData(text: _deviceMAC));
+                                  },
+                                  child: Text(
+                                    _deviceMAC,
+                                    textAlign: TextAlign.center,
+                                    style: const TextStyle(
+                                      fontFamily: "Candy",
+                                      color: Colors.red,
+                                      fontSize: 16,
+                                    ),
                                   ),
                                 ),
                               ],

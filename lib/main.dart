@@ -1,3 +1,6 @@
+import 'package:apptv/pages/Home.dart';
+import 'package:apptv/pages/SettingsPage.dart';
+import 'package:apptv/pages/channels/ChannelsPage.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -9,6 +12,7 @@ import 'pages/SplashScreen.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
+  SystemChrome.setEnabledSystemUIMode(SystemUiMode.immersiveSticky);
   SystemChrome.setPreferredOrientations([
     DeviceOrientation.landscapeRight,
     DeviceOrientation.landscapeLeft,
@@ -42,6 +46,9 @@ void main() async {
         routes: {
           // When navigating to the "/" route, build the FirstScreen widget.
           '/': (context) => const SplashScreen(),
+          '/home' : (context) => const HomePage(),
+          '/settings' : (context) => const SettingsPage(),
+          '/category/channels' : (context) => const ChannelsPage(),
           // When navigating to the "/second" route, build the SecondScreen widget.
           //'/second': (context) => const SecondScreen(),
         },

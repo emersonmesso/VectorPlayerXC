@@ -1,8 +1,8 @@
 import 'dart:convert';
+import 'package:get/get.dart';
 import 'package:hive/hive.dart';
 import 'package:http/http.dart' as http;
 import 'package:xml2json/xml2json.dart';
-
 import '../models/ListM3U8/ResponseListM3U8Channel.dart';
 import '../models/ListM3U8/ResponseListM3U8Series.dart';
 import '../models/ResponseAPITMDB.dart';
@@ -19,9 +19,11 @@ import '../models/Serie/ResponseInfoSerieEpisode.dart';
 import '../models/Serie/ResponseInfoSerieInfo.dart';
 import '../models/Serie/ResponseInfoSerieSeason.dart';
 import '../models/Serie/ResponseSerieInfoAll.dart';
+import '../pages/UpdateApp.dart';
 
 class HTTpController {
   final String URL_API = "http://vectorplayer.com/v1/";
+  final String version = "1.0.0";
 
   //GetChannels from list m3u8
   Future<List<ResponseListM3U8Channel>?> getListChannelsFromM3U8(
@@ -281,8 +283,16 @@ class HTTpController {
     if (response.statusCode == 200) {
       var responseData = json.decode(response.body);
       if (responseData['error'] == false) {
+        if (version != responseData['version']) {
+          Get.offAll(
+            UpdateApp(
+              url: responseData['update'],
+            ),
+          );
+          lista = <ResponseListAPI>[];
+          return lista;
+        }
         var dados = responseData['data'] as List;
-        print("LISTAS: ${dados.length}");
         if (dados.length > 0) {
           lista = dados.map((e) => ResponseListAPI.fromJson(e)).toList();
         }

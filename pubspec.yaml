@@ -61,6 +61,8 @@ dependencies:
   sizer: ^2.0.15
   get:
   percent_indicator:
+  platform_device_id: ^1.0.1
+  url_launcher: ^6.1.10
 
 dev_dependencies:
   flutter_test:
