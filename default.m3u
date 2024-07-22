@@ -210,9 +210,6 @@ http://15.235.15.230:14492/
 #EXTINF:-1 tvg-logo="https://seeklogo.com/images/R/rede-globo-logo-817F928B4F-seeklogo.com.png" group-title="Canais | GLOBO",Globo SP UHD
 https://abc.embedmax.site/globoSP/tracks-v1a1/mono.m3u8
 
-#EXTINF:-1 tvg-logo="https://seeklogo.com/images/R/rede-globo-logo-817F928B4F-seeklogo.com.png" group-title="Canais | GLOBO",➾ Globo MG UHD
-https://abc.embedmax.site/globoMG/tracks-v1a1/mono.m3u8
-
 #EXTINF:-1 tvg-logo="https://upload.wikimedia.org/wikipedia/pt/4/42/Rede_Globo_logo.png" group-title="Canais | GLOBO",GLOBO PR HD
 http://15.235.15.230:14485/
 
@@ -253,25 +250,16 @@ http://15.235.15.230:14783/
 http://cdn-2.nxplay.com.br/TV_TEM_TK/tracks-v1a1/mono.m3u8
 
 #EXTINF:-1 tvg-logo="https://upload.wikimedia.org/wikipedia/pt/f/fa/Logotipo_da_TV_TEM_%282013%E2%80%932019%29.png" group-title="Canais | GLOBO",➾ Globo SP (TV TEM 3).ᴴᴰ
-http://cdn-3.nxplay.com.br/TV_TEM_TK/tracks-v1a1/mono.m3u8
+https://cdn-3.nxplay.com.br/TV_TEM_TK/tracks-v1a1/mono.m3u8
 
 #EXTINF:-1 tvg-logo="https://upload.wikimedia.org/wikipedia/pt/f/fa/Logotipo_da_TV_TEM_%282013%E2%80%932019%29.png" group-title="Canais | GLOBO",➾ Globo SP (TV TEM 4).ᴴᴰ
 http://cdn-4.nxplay.com.br/TV_TEM_TK/tracks-v1a1/mono.m3u8
-
-#EXTINF:-1 tvg-logo="https://seeklogo.com/images/R/rede-globo-logo-817F928B4F-seeklogo.com.png" group-title="Canais | GLOBO",➾ Globo SP 4k
-http://190.102.43.113:80/Formigatv/offilinetv2806/1542445.m3u8
-
-#EXTINF:-1 tvg-logo="https://seeklogo.com/images/R/rede-globo-logo-817F928B4F-seeklogo.com.png" group-title="Canais | GLOBO",➾ Globo SP (Link2).ᴴᴰ
-http://190.102.43.113:80/Formigatv/offilinetv2806/1541629.m3u8
 
 #EXTINF:-1 tvg-logo="https://seeklogo.com/images/R/rede-globo-logo-817F928B4F-seeklogo.com.png" group-title="Canais | GLOBO",➾ Globo SP (Link3).ᴴᴰ
 https://cdn-3.nxplay.com.br/GLOBO_SP_TK/tracks-v1a1/mono.m3u8
 
 #EXTINF:-1 tvg-logo="https://seeklogo.com/images/R/rede-globo-logo-817F928B4F-seeklogo.com.png" group-title="Canais | GLOBO",➾ Globo SP (Link4).ᴴᴰ
 https://cdn-4.nxplay.com.br/GLOBO_SP_TK/tracks-v1a1/mono.m3u8
-
-#EXTINF:-1 tvg-logo="https://upload.wikimedia.org/wikipedia/commons/c/c8/Logo_Globo_2005.png" group-title="Canais | GLOBO",➾ Globo SP.ᴴᴰ
-http://190.102.43.113/Formigatv/offilinetv2806/1542012.m3u8
 
 #EXTINF:-1 tvg-logo="https://upload.wikimedia.org/wikipedia/pt/1/1e/Logotipo_TV_Bahia.png" group-title="Canais | GLOBO", ➾ Globo Bahia.ᴴᴰ ✅
 http://hls1.sua.tv/live/globotvbahiafhdbr2/s.m3u8
@@ -419,9 +407,6 @@ https://ythls.armelin.one/channel/UCcDerngKTEU5ryjMS-ThLbg.m3u8
 
 #EXTINF:-1 tvg-logo="https://seeklogo.com/images/R/rede-record-logo-BB6C025910-seeklogo.com.png" group-title="Canais | RECORD", RECORD SP (HD 1)
 https://cdn-2.nxplay.com.br/RECORD_PAULISTA_PFZ_NXPLAY_01/index.m3u8
-
-#EXTINF:-1 tvg-logo="https://seeklogo.com/images/R/rede-record-logo-BB6C025910-seeklogo.com.png" group-title="Canais | RECORD", RECORD SP (HD 2)
-https://cdn-3.nxplay.com.br/RECORD_PAULISTA_PFZ_NXPLAY_01/index.m3u8
 
 #EXTINF:-1 tvg-logo="https://seeklogo.com/images/R/rede-record-logo-BB6C025910-seeklogo.com.png" group-title="Canais | RECORD", RECORD SP (HD 3)
 https://cdn-4.nxplay.com.br/RECORD_PAULISTA_PFZ_NXPLAY_01/index.m3u8
@@ -2242,9 +2227,6 @@ http://maistop.net:80/live/free/free/1.m3u8
 
 #EXTINF:-1 tvg-id="MULTISHOW" tvg-logo="https://imgur.com/a4lEiwk.png" group-title="Canais | VARIEDADES",Multishow SD
 http://64.31.40.14:14712/
-
-#EXTINF:-1 tvg-id="MULTISHOW" tvg-logo="https://imgur.com/a4lEiwk.png" group-title="Canais | VARIEDADES",Multishow HD
-http://xcui.vitvabc.xyz:8880/laok300/8pEZjdeMPad7/31617
 
 #EXTINF:-1 tvg-id="MULTISHOW" tvg-logo="https://imgur.com/a4lEiwk.png" group-title="Canais | VARIEDADES",Multishow UHD
 https://abc.embedmax.site/multishow/tracks-v1a1/mono.m3u8
